@@ -12,7 +12,7 @@
 			<div>
 				<p>
 					<label>이름</label>
-					<input class="w3-input" type="text" id="userid" name="userid" required>
+					<input class="w3-input" type="text" id="uname" name="uname" required>
 				</p>
 				<p>
 					<label>Email</label>
