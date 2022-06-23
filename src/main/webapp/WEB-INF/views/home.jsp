@@ -1,3 +1,4 @@
+<%@page import="org.springframework.web.bind.annotation.SessionAttribute"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -72,7 +73,18 @@
             <li><a href="#">신고하기</a></li> 
           </ul>
         </li>
-     	<li><a href="./member/loginform.do">로그인</a></li>
+        <li>
+
+<%
+		//로그인하면 헤더의 로그인 버튼이 로그아웃 버튼으로 바뀌도록 함
+        if (session.getAttribute("s_userid")==null||session.getAttribute("s_upw")==null||session.getAttribute("s_ulevel")==null){ 	
+			out.println("<a href='./member/loginform.do'>로그인</a>");
+        }else {
+        	out.println("<a href='./member/logout.do'>로그아웃</a>");
+        }//if end
+%>
+     	</li>
+     	
         <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
       </ul>
     </div>
