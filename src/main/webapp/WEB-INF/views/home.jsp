@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
   
-  <title>스터디 그룹</title>
+  <title>스터디 그룹1</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
