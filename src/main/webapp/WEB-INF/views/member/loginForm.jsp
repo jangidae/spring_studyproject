@@ -6,7 +6,7 @@
 
 
 <form name="loginfrm" id="loginfrm" action="loginproc.do" method="POST" onsubmit="return loginCheck()"><!-- myscript.js에서 함수 작성 -->
-	<h1>로그인1</h1>
+	<h1>로그인</h1>
 	<hr>
 	&nbsp;&nbsp;<b>아이디</b> <input type="text" id="userid" name="userid" placeholder="Enter id" maxlength="10" required>
 	<br>
@@ -16,11 +16,9 @@
 		<button type="reset" class="cancelbtn">취소</button>
 		<button type="submit" class="submitbtn">로그인</button>
 	</div>
-	<label><input type="checkbox" name="c_id" value="SAVE">아이디 저장</label>
+	<a href="/findIDform.do">아이디/비밀번호찾기</a>
 	&nbsp;&nbsp;
-	<a href="findID.jsp">아이디/비밀번호찾기</a>
-	&nbsp;&nbsp;
-	<a href="join.jsp">회원가입</a>
+	<a href="/agreement.do">회원가입</a>
 </form>
 
 

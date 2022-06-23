@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-   <%@ include file="../header.jsp"%>
-    
 <%-- ssi.jsp 공통코드--%>
 
 <%@ page import="java.sql.*"%>
@@ -17,4 +15,3 @@
 <%request.setCharacterEncoding("UTF-8");%>
 
 
-<%@ include file="../footer.jsp"%>
