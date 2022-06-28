@@ -1,0 +1,29 @@
+-- bbsFree_sql.txt
+
+-- bbsFree테이블 생성
+CREATE TABLE bbsFree (
+	wno      NUMBER(5)      NOT NULL PRIMARY KEY,   --글번호(PK)
+	wtitle   VARCHAR2(50)   NOT NULL,               --글제목
+	wcontent VARCHAR2(2000) NOT NULL,               --글내용
+	wpasswd  VARCHAR2(10)   NOT NULL,               --글비밀번호
+	wgrpno   NUMBER(5)      NOT NULL,               --글그룹번호
+	userid   VARCHAR2(20)   NOT NULL,               --작성자
+	ccode    VARCHAR2(10)   NOT NULL,               --카테고리
+	filename VARCHAR2(255)  NOT NULL,               --첨부파일명
+    filesize NUMBER         NOT NULL DEFAULT 0,
+	wdate    DATE           NULL DEFAULT SYSDATE,   --최초작성일
+	mdate    DATE           NULL DEFAULT SYSDATE,   --최근수정일
+	wview    NUMBER(10)     NOT NULL DEFAULT 0,     --조회수
+	windent  NUMBER(5)      NULL DEFAULT 0,         --들여쓰기
+	wnum     NUMBER(5)      NULL DEFAULT 0,         --글순서
+	ip       VARCHAR2(15)   NOT NULL                --사용자IP
+);
+
+
+--시퀀스 생성
+create sequence Free_seq;
+
+
+commit;
+
+
