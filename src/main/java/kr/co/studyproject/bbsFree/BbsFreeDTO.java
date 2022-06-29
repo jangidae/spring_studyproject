@@ -3,12 +3,12 @@ package kr.co.studyproject.bbsFree;
 public class BbsFreeDTO {
 	private int wno;
 	private String wtitle;
+	private String wcontent;
 	private String wpasswd;
-	private int wgrpno;
 	private String userid;
 	private String ccode;
 	private String filename;
-	private int filesize;
+	private long filesize;
 	private String wdate;
 	private String mdate;
 	private int wview;
@@ -17,6 +17,14 @@ public class BbsFreeDTO {
 	private String ip;
 
 	public BbsFreeDTO() {}
+
+	public String getWcontent() {
+		return wcontent;
+	}
+
+	public void setWcontent(String wcontent) {
+		this.wcontent = wcontent;
+	}
 
 	public int getWno() {
 		return wno;
@@ -40,14 +48,6 @@ public class BbsFreeDTO {
 
 	public void setWpasswd(String wpasswd) {
 		this.wpasswd = wpasswd;
-	}
-
-	public int getWgrpno() {
-		return wgrpno;
-	}
-
-	public void setWgrpno(int wgrpno) {
-		this.wgrpno = wgrpno;
 	}
 
 	public String getUserid() {
@@ -74,11 +74,11 @@ public class BbsFreeDTO {
 		this.filename = filename;
 	}
 
-	public int getFilesize() {
+	public long getFilesize() {
 		return filesize;
 	}
 
-	public void setFilesize(int filesize) {
+	public void setFilesize(long filesize) {
 		this.filesize = filesize;
 	}
 

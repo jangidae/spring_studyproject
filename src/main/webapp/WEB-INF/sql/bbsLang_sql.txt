@@ -1,26 +1,22 @@
--- bbsLang_sql.txt
-
--- bbsLang테이블 생성
 CREATE TABLE bbsLang (
-	wno      NUMBER(5)      NOT NULL PRIMARY KEY,   --글번호(PK)
-	wtitle   VARCHAR2(50)   NOT NULL,               --글제목
-	wcontent VARCHAR2(2000) NOT NULL,               --글내용
-	wpasswd  VARCHAR2(10)   NOT NULL,               --글비밀번호
-	wgrpno   NUMBER(5)      NOT NULL,               --글그룹번호
-	userid   VARCHAR2(20)   NOT NULL,               --작성자
-	wdate    DATE           DEFAULT SYSDATE NULL,   --최초작성일
-	mdate    DATE           DEFAULT SYSDATE NULL ,   --최근수정일
-	wview    NUMBER(10)     DEFAULT 0 NOT NULL ,     --조회수
-	lcode    VARCHAR2(10)   NOT NULL,               --언어구분코드
-	windent  NUMBER(5)      DEFAULT 0 NULL ,         --들여쓰기
-	wnum     NUMBER(5)      DEFAULT 0 NULL,         --글순서
-	ip       VARCHAR2(15)   NOT NULL                --사용자IP
+   wno      NUMBER(5)      NOT NULL PRIMARY KEY,  
+   wtitle   VARCHAR2(50)   ,              
+   wcontent VARCHAR2(2000) ,               
+   wpasswd  VARCHAR2(10)   ,               
+   userid   VARCHAR2(20)  ,            
+   wdate    DATE           DEFAULT SYSDATE NULL,   
+   mdate    DATE           DEFAULT SYSDATE NULL ,
+   wview    NUMBER(10)     DEFAULT 0 NOT NULL ,     
+   lcode    VARCHAR2(10)  ,               
+   windent  NUMBER(5)      DEFAULT 0 NULL ,        
+   wnum     NUMBER(5)      DEFAULT 0 NULL,         
+   ip       VARCHAR2(15)                 
 );
 
---시퀀스 생성
+
 create sequence Lang_seq;
 
 
+INSERT INTO BBSLANG(wno, wcontent, lcode, wtitle, userid,  wview, wpasswd, wdate, mdate) VALUES (Lang_seq.nextval, 1, 2, 3, 4, 5, 6, SYSDATE, SYSDATE);
+
 commit;
-
-

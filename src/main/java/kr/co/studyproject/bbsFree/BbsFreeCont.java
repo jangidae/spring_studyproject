@@ -1,14 +1,23 @@
 package kr.co.studyproject.bbsFree;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+
 
 @Controller
 public class BbsFreeCont {
-	private static final int wgrpno = 0;
+	
 	BbsFreeDAO dao=null;
 	
 	public BbsFreeCont() {
@@ -17,7 +26,7 @@ public class BbsFreeCont {
 	}//end
 
 
-
+//결과확인 http://localhost:9100/bbsFree/create.do
 
 @RequestMapping(value = "bbsFree/create.do", method = RequestMethod.GET)
 public String createForm() {
@@ -27,12 +36,22 @@ public String createForm() {
 
 
 @RequestMapping(value = "bbsFree/create.do", method = RequestMethod.POST)
-public ModelAndView createProc(@ModelAttribute BbsFreeDTO dto) {
-	                         
+public ModelAndView createProc(@ModelAttribute BbsFreeDTO dto, HttpServletRequest request,MultipartFile file) {
+	                          
+	String filename = file.getOriginalFilename();
+	File target = new File("C://java202202//workspace_spring//spring_studyproject//src//main//webapp//storage",filename);
+	try {
+		FileCopyUtils.copy(file.getBytes(), target);
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
 	
 	ModelAndView mav=new ModelAndView();
 	mav.setViewName("bbsFree/msgView");
-	
+	dto.setFilename(filename);
+	dto.setFilesize(file.getSize());
+	dto.setIp(request.getRemoteAddr());
+	dto.setUserid("aa");  //(String)request.getSession().getAttribute("세션명")  
 	int cnt=dao.create(dto);
 	if(cnt==0) {
         String msg="<p>게시물 등록 실패</p>";
@@ -57,40 +76,73 @@ public ModelAndView createProc(@ModelAttribute BbsFreeDTO dto) {
 	return mav;
 	
 }//createProc() end
+
 @RequestMapping("bbsFree/read.do")
-public ModelAndView read() {
+public ModelAndView read(@ModelAttribute BbsFreeDTO dto) {
 	ModelAndView mav=new ModelAndView();
 	mav.setViewName("bbsFree/read");
-	//mav.addObject("list", dao.list(wgrpno));
+	dao.increment_view_count(dto.getWno());
+	mav.addObject("read", dao.read(dto.getWno()));
 	return mav;
-}
-@RequestMapping("bbsFree/delete.do")
-public ModelAndView delete() {
+}//read() end
+
+@RequestMapping(value = "bbsFree/delete.do", method = RequestMethod.GET)
+public ModelAndView delete_get(@ModelAttribute BbsFreeDTO dto) {
 	ModelAndView mav=new ModelAndView();
 	mav.setViewName("bbsFree/deleteForm");
-	//mav.addObject("list", dao.list(wgrpno));
 	return mav;
-}
+}//delete_get() end
+
+@RequestMapping(value = "bbsFree/delete.do", method = RequestMethod.POST)
+public ModelAndView delete(@ModelAttribute BbsFreeDTO dto) {
+	ModelAndView mav=new ModelAndView();
+	dao.delete(dto);
+	mav.setViewName("redirect:/bbsFree/list.do");
+	return mav;
+}//delete() end
+
 @RequestMapping(value = "bbsFree/update.do", method = RequestMethod.GET)
-public ModelAndView update_get() {
+public ModelAndView update_get(@ModelAttribute BbsFreeDTO dto) {
 	ModelAndView mav=new ModelAndView();
 	mav.setViewName("bbsFree/updateForm");
-	//mav.addObject("list", dao.list(wgrpno));
+	mav.addObject("update", dao.read(dto.getWno()));
 	return mav;
-}
+}//update_get() end
+
 @RequestMapping(value = "bbsFree/update.do", method = RequestMethod.POST)
-public ModelAndView update() {
+public ModelAndView update(@ModelAttribute BbsFreeDTO dto,MultipartFile file , HttpServletRequest request) {
+	
+	String filename = file.getOriginalFilename();
+	long filesize=file.getSize();
+	File target = new File("C://java202202//workspace_spring//spring_studyproject//src//main//webapp//storage",filename);
+	try {
+		FileCopyUtils.copy(file.getBytes(), target);
+	} catch (IOException e) {
+		e.printStackTrace();
+		filename = request.getParameter("tmpfile");
+		filesize = Long.parseLong(request.getParameter("tmpsize"));
+	}
+	
 	ModelAndView mav=new ModelAndView();
 	mav.setViewName("bbsFree/read");
-	//mav.addObject("list", dao.list(wgrpno));
+	dto.setFilename(filename);
+	dto.setFilesize(filesize);
+	
+	dao.update(dto);
+	mav.addObject("read", dao.read(dto.getWno()));
 	return mav;
-}
+}//update() end
 
 @RequestMapping("bbsFree/list.do")
 public ModelAndView list() {
 	ModelAndView mav=new ModelAndView();
 	mav.setViewName("bbsFree/list");
-	mav.addObject("list", dao.list(wgrpno));
+	mav.addObject("list", dao.list());
 	return mav;
 }//list() end
+
+
+
+
+
 }

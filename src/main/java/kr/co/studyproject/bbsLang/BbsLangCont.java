@@ -1,5 +1,7 @@
 package kr.co.studyproject.bbsLang;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class BbsLangCont {
-	private static final int wgrpno = 0;
 	BbsLangDAO dao=null;
 	
 	public BbsLangCont() {
@@ -27,12 +28,13 @@ public String createForm() {
 
 
 @RequestMapping(value = "bbsLang/create.do", method = RequestMethod.POST)
-public ModelAndView createProc(@ModelAttribute BbsLangDTO dto) {
-	                          //String title 써도 됨
+public ModelAndView createProc(@ModelAttribute BbsLangDTO dto, HttpServletRequest request) {
+	                         
 	
 	ModelAndView mav=new ModelAndView();
-	mav.setViewName("bbsFree/msgView");
-	
+	mav.setViewName("bbsLang/msgView");
+	dto.setIp(request.getRemoteAddr());
+	dto.setUserid("aa");  //(String)request.getSession().getAttribute("세션명")  
 	int cnt=dao.create(dto);
 	if(cnt==0) {
         String msg="<p>게시물 등록 실패</p>";
@@ -54,38 +56,51 @@ public ModelAndView createProc(@ModelAttribute BbsLangDTO dto) {
         mav.addObject("link2", link2); 
 	}//if end
 	
-
 	return mav;
 	
 }//createProc() end
+
 @RequestMapping("bbsLang/read.do")
-public ModelAndView read() {
+public ModelAndView read(@ModelAttribute BbsLangDTO dto) {
 	ModelAndView mav=new ModelAndView();
 	mav.setViewName("bbsLang/read");
-	mav.addObject("list", dao.list());
+	dao.increment_view_count(dto.getWno());
+	mav.addObject("read", dao.read(dto.getWno()));
 	return mav;
-}
-@RequestMapping("bbsLang/delete.do")
-public ModelAndView delete() {
+}//read() end
+
+@RequestMapping(value = "bbsLang/delete.do", method = RequestMethod.GET)
+public ModelAndView delete_get(@ModelAttribute BbsLangDTO dto) {
 	ModelAndView mav=new ModelAndView();
 	mav.setViewName("bbsLang/deleteForm");
-	//mav.addObject("list", dao.list(wgrpno));
 	return mav;
-}
+}//delete_get() end
+
+@RequestMapping(value = "bbsLang/delete.do", method = RequestMethod.POST)
+public ModelAndView delete(@ModelAttribute BbsLangDTO dto) {
+	ModelAndView mav=new ModelAndView();
+	dao.delete(dto);
+	mav.setViewName("redirect:/bbsLang/list.do");
+	return mav;
+}//delete() end
+
 @RequestMapping(value = "bbsLang/update.do", method = RequestMethod.GET)
-public ModelAndView update_get() {
+public ModelAndView update_get(@ModelAttribute BbsLangDTO dto) {
 	ModelAndView mav=new ModelAndView();
 	mav.setViewName("bbsLang/updateForm");
-	//mav.addObject("list", dao.list(wgrpno));
+	mav.addObject("update", dao.read(dto.getWno()));
 	return mav;
-}
+}//update_get()end
+
 @RequestMapping(value = "bbsLang/update.do", method = RequestMethod.POST)
-public ModelAndView update() {
+public ModelAndView update(@ModelAttribute BbsLangDTO dto) {
 	ModelAndView mav=new ModelAndView();
 	mav.setViewName("bbsLang/read");
-	//mav.addObject("list", dao.list(wgrpno));
+	dao.update(dto);
+	mav.addObject("read", dao.read(dto.getWno()));
 	return mav;
-}
+}//update() end
+
 @RequestMapping("bbsLang/list.do")
 public ModelAndView list() {
 	ModelAndView mav=new ModelAndView();
@@ -93,5 +108,7 @@ public ModelAndView list() {
 	mav.addObject("list", dao.list());
 	return mav;
 }//list() end
-}
 
+
+
+}//class end

@@ -5,50 +5,45 @@
 
     <div class="title">게시글 등록</div>
 	<form name="frm" method="post" action="create.do" enctype="multipart/form-data">
-		<input type="hidden" name="wgrpno" value="${requestScope.wgrpno}">
 		<table class='table'>
 		<tr>
 			<th> 카테고리 </th>
 			<td> 
-				<select class="form-select" aria-label="Default select example" style='width:710px;'>
+				<select class="form-select" aria-label="Default select example" style='width:710px;' name='ccode'>
   					<option selected>Select Category</option>
-  					<option value="1">Category1</option>
-  					<option value="2">Category2</option>
-  					<option value="3">Category3</option>
-  					<option value="3">Category4</option>
-  					<option value="3">Category5</option>
-  					<option value="3">Category6</option>
+  					<option value="HU001">유머</option>
+  					<option value="ST001">공부</option>
+  					<option value="RE001">후기</option>
+  					<option value="LI001">자격증</option>
+  					<option value="SH001">자료공유</option>
 				</select>
 			</td>
 		</tr>
 	    <tr>
 	      <th>제목</th>
-	      <td><input type='text' name='title' size='50'></td>
+	      <td><input type='text' name='wtitle' size='50'></td>
 	    </tr>
 	    <tr>
 	      <th>내용</th>
-	      <td><textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" cols='30' rows='15'></textarea></td>
+	      <td><textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" cols='30' rows='15' name=wcontent></textarea></td>
 	    </tr>
 	    <tr>
 	      <th>사진</th>
-	      <td><input class='form-control' id='formFile' type='file' name='pictureMF' size='50'></td>    
+	      <td><input class='form-control' id='formpic' type='file' name='file' size='50'></td>    
 	    </tr>
-	    <tr>
-	      <th>미디어 파일</th>
-	      <td><input  class='form-control' id='formFile' type='file' name='filenameMF' size='50'></td>    
-	    </tr>  
+	   
 	    <tr>
 	    	<th>비밀번호</th>
 	    	<td style='text-align:left;'>
-	    		<input type='password' name='title' size='10' style='font-size:15pt; height:30px;'>
+	    		<input type='password' name='wpasswd' size='10' style='font-size:15pt; height:30px;'>
 	    	</td>
 	    </tr>
 	    </table>
 
 	    <div class="btn-group" role="group" aria-label="Basic example">
-	      <input type='submit' value='작성완료' class="btn btn-primary">
-		  <input  class="btn btn-primary" type="button" value="목록" onclick="location.href='list.do?wgrpno=${requestScope.wgrpno}'">
-		  <input  class="btn btn-primary" type="button" value="HOME"   onclick="location.href='/home.do'">	
+	       <input type='submit' value='작성완료' class="btn btn-primary">
+		  <input  class="btn btn-primary" type="button" value="목록" onclick="location.href='list.do';">
+		  <input  class="btn btn-primary" type="button" value="HOME"   onclick="location.href='/home.do'">
 	    </div>  
 	</form>
 
