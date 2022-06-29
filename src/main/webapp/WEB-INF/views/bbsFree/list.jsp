@@ -43,7 +43,7 @@
 	
 		<tr>	
 			<td>${dto.ccode}</td>
-			<td style='text-align:left;'>
+			<td><a href="read.do?wno=${dto.wno}">${dto.wtitle}</a></td>
 			<td>${dto.userid}</td>
 			<td>${fn:substring(dto.wdate,0,10)}</td>
 			<td>${fn:substring(dto.mdate,0,10)}</td>
