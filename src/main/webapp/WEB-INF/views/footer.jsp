@@ -9,7 +9,7 @@
   <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
     <span class="glyphicon glyphicon-chevron-up"></span>
   </a><br><br>
-  <p>스터디하시2조 윤현규 이덕모 장이대 문하빈 임채린<a href="https://www.w3schools.com" data-toggle="tooltip"></a></p> 
+  <p>스터디하시2조 이덕모 장이대 문하빈 임채린<a href="https://www.w3schools.com" data-toggle="tooltip"></a></p> 
 </footer>
 
 </body>

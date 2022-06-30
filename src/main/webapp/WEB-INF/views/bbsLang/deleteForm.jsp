@@ -16,10 +16,15 @@
 	    </div>
 				
 	    <div class='bottom'>
-	      <input type='submit' value='삭제 확인'>
+	      <input type='button' value='삭제 완료' onclick="chk()">
 	      <input type='button' value='HOME' onclick="location.href='/home.do'">
 	    </div>   
     </form>
-
+<script>
+function chk(){
+	let flag = confirm("삭제 하시겠습니까? ");
+	if(flag) document.frm.submit();
+}
+</script>
 <!-- 본문 끝 -->
 <%@ include file="../footer.jsp" %>

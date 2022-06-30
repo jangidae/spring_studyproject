@@ -3,23 +3,16 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-    <div class="title">게시글 등록</div>
-	<form name="frm" method="post" action="create.do" >
+    <div class="title">댓글 등록</div>
+	<form name="frm" method="post" action="reply.do" >
+	<input type='hidden' name='wnum' value='${read.wno}'>
+	<input type='hidden' name='windent' value='${read.windent + 1}'>
+	<input type='hidden' name='lcode' value="${read.lcode.split("-")[1] }">
 		<table class='table'>
 		<tr>
 			<th> 카테고리 </th>
 			<td> 
-				<select class="form-select" aria-label="Default select example" style='width:710px;' name='lcode'>
-  					<option selected>카테고리를 선택해주세요</option>
-  					<option value="ENG001">영어</option>
-  					<option value="TOE001">토익</option>
-  					<option value="TOF001">토플</option>
-  					<option value="JAP001">일본어</option>
-  					<option value="JLP001">일본어자격증</option>
-  					<option value="CHI001">중국어</option>
-  					<option value="HSK001">중국어자격증</option>
-  					<option value="STU001">기타</option>
-				</select>
+				<input value='${read.lcode.split("-")[0]}' readonly>
 			</td>
 		</tr>
 	    <tr>

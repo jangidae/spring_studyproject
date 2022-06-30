@@ -10,7 +10,7 @@
 		<tr>
 			<th> 카테고리 </th>
 			<td> 
-				${read.lcode}
+				${read.lcode.split("-")[0]}
 			</td>
 		</tr>
 		<tr>
@@ -23,16 +23,16 @@
 	    </tr>
 	    <tr>
 	      <th>내용</th>
-	      <td><textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" cols='30' rows='15' style='background:white; border:0;' readonly>
+	      <td><textarea class="form-control" placeholder="내용을 입력해주세요" id="floatingTextarea" cols='30' rows='15' style='background:white; border:0;' readonly>
 	      ${read.wcontent}</textarea></td>
 	    </tr>
 	     <tr>
 	      <th>작성일</th>
-	      <td>${fn:substring(read.wdate,0,10)}</td>
+	      <td>${fn:substring(read.wdate,0,19)}</td>
 	     </tr>
 	     <tr>
 	      <th>수정일</th>
-	      <td>${fn:substring(read.mdate,0,10)}</td>
+	      <td>${fn:substring(read.mdate,0,19)}</td>
 	    </tr>
 	     <tr>
 	      <th>조회수</th>
@@ -42,10 +42,10 @@
 	    </table>
 
 	    <div class="btn-group" role="group" aria-label="Basic example">
-	    <input type='button' value='게시물 답글' onclick="location.href='reply.do?wno=${read.wno}';">
-	       <input type='button' value='게시물 수정' onclick="location.href='update.do?wno=${read.wno}';">
-	       <input type='button' value='게시물 삭제' onclick="location.href='delete.do?wno=${read.wno}';">
-		  <input type="button" value="게시판 목록" onclick="location.href='list.do';">
+	    <input type='button' value='댓글' onclick="location.href='reply.do?wno=${read.wno}';">
+	       <input type='button' value='수정' onclick="location.href='update.do?wno=${read.wno}';">
+	       <input type='button' value='삭제' onclick="location.href='delete.do?wno=${read.wno}';">
+		  <input type="button" value="목록" onclick="location.href='list.do';">
 		  <input type="button" value="HOME"   onclick="location.href='/home.do';">	
 	    </div>  
 

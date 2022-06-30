@@ -3,20 +3,16 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-    <div class="title">게시글 등록</div>
-	<form name="frm" method="post" action="create.do" enctype="multipart/form-data">
+    <div class="title">댓글 등록</div>
+	<form name="frm" method="post" action="reply.do" enctype="multipart/form-data">
+	<input type='hidden' name='wnum' value='${read.wno}'>
+	<input type='hidden' name='windent' value='${read.windent + 1}'>
+	<input type='hidden' name='ccode' value="${read.ccode.split('-')[1] }">
 		<table class='table'>
 		<tr>
 			<th> 카테고리 </th>
 			<td> 
-				<select class="form-select" aria-label="Default select example" style='width:710px;' name='ccode'>
-  					<option selected>카테고리를 선택해주세요</option>
-  					<option value="HU001">유머</option>
-  					<option value="ST001">공부</option>
-  					<option value="RE001">후기</option>
-  					<option value="LI001">자격증</option>
-  					<option value="SH001">자료공유</option>
-				</select>
+				<input value='${read.ccode.split("-")[0]}' readonly>
 			</td>
 		</tr>
 	    <tr>
@@ -31,7 +27,6 @@
 	      <th>사진</th>
 	      <td><input class='form-control' id='formpic' type='file' name='file' size='50'></td>    
 	    </tr>
-	   
 	    <tr>
 	    	<th>비밀번호</th>
 	    	<td style='text-align:left;'>

@@ -53,25 +53,41 @@ public class BbsFreeDAO {
     }//create() end
     
    
-    public LinkedList<BbsFreeDTO> search(String word) {
-    	LinkedList<BbsFreeDTO> list=null;
+    public ArrayList<BbsFreeDTO> search(String word) {
+    	ArrayList<BbsFreeDTO> list=null;
     	try {
             con=dbopen.getConnection();
             sql=new StringBuilder();
-            sql.append(" SELECT wno, wtitle, userid, lcode, wview, wdate, mdate ,wnum, windent");
+            sql.append(" SELECT wno, wtitle, userid, ccode, wview, wdate, mdate ,wnum, windent");
             sql.append(" FROM bbsFree ");
+            sql.append(" WHERE wtitle like '%"+word+"%' or userid like '%"+word+"%' or wcontent like '%"+word+"%' ");
             sql.append(" ORDER BY wno DESC ");
             pstmt=con.prepareStatement(sql.toString());
             rs=pstmt.executeQuery();
             if(rs.next()) {
-            	list=make_list(rs);
+            	list=new ArrayList<>();
+                do {
+                    BbsFreeDTO dto=new BbsFreeDTO();
+                    dto.setWno(rs.getInt("wno"));
+                    dto.setWtitle(rs.getString("wtitle"));
+                    dto.setUserid(rs.getString("userid"));
+                    dto.setCcode(setCode(rs.getString("ccode")));
+                    dto.setWview(rs.getInt("wview"));
+                    dto.setWdate(rs.getString("wdate"));
+                    dto.setMdate(rs.getString("mdate"));
+                    dto.setWnum(rs.getInt("wnum"));
+                    dto.setWindent(rs.getInt("windent"));
+                    list.add(dto);
+                }while(rs.next());
                 
-            }
-    	} catch(SQLException e) {
-	         e.printStackTrace();
-	     }
+            }//if end
+    	} catch(Exception e) {
+    		System.out.println("검색실패"+e);
+	    } finally {
+	           DBClose.close(con, pstmt, rs);
+	    }//end
     	return list;
-	 }
+    }//search() end
     
     public LinkedList<BbsFreeDTO> list() {
     	LinkedList<BbsFreeDTO> list=null;
@@ -93,8 +109,8 @@ public class BbsFreeDAO {
             DBClose.close(con, pstmt, rs);
          }//end
          return list;
-    	
     }//list() end
+    
     private LinkedList<BbsFreeDTO> make_list(ResultSet rs){
     	try {
     	ArrayList<BbsFreeDTO> temp=new ArrayList<>();
@@ -103,7 +119,7 @@ public class BbsFreeDAO {
             dto.setWno(rs.getInt("wno"));
             dto.setWtitle(rs.getString("wtitle"));
             dto.setUserid(rs.getString("userid"));
-            dto.setCcode(rs.getString("ccode"));
+            dto.setCcode(setCode(rs.getString("ccode")));
             dto.setWview(rs.getInt("wview"));
             dto.setWdate(rs.getString("wdate"));
             dto.setMdate(rs.getString("mdate"));
@@ -122,27 +138,29 @@ public class BbsFreeDAO {
             				if(temp.get(i).getWnum() == list.get(k).getWno()) {
             					list.add(k+1,temp.get(i));
             					break;
-            				}
-            			}
-        			}
-        		}
-        	}
-        	wind++;
-        }while(temp.size() != list.size());
+	            				}//if end
+	            			}//for end
+	        			}//if end
+	        		}//if end
+	        	}//for end
+	        	wind++;
+	        }while(temp.size() != list.size());
         return list;
         
-    	}catch(SQLException e) {
-    		e.printStackTrace();
-    	}
-    	return null;
-    }
+    	}catch(Exception e) {
+    		System.out.println("목록생성실패"+e);
+    	}finally{
+    		DBClose.close(con);
+    	}//end
+    	return null;  //반환타입이 객체인 경우 반환문에 null값을 반환함
+    }//make_list() end
     
     public BbsFreeDTO read(int wno) {
     	BbsFreeDTO dto = null;
         try {
           con = dbopen.getConnection();
           sql = new StringBuilder();
-          sql.append(" SELECT wno, wtitle, wcontent, userid, ccode, filename, filesize, wview,windent wdate, mdate  ");
+          sql.append(" SELECT wno, wtitle, wcontent, userid, ccode, filename, filesize, wview,windent,wdate, mdate  ");
           sql.append(" FROM bbsFree ");
           sql.append(" WHERE wno = ? "); 
           pstmt = con.prepareStatement(sql.toString());
@@ -165,6 +183,7 @@ public class BbsFreeDAO {
 
         } catch (Exception e) {
             System.out.println("상세보기실패"+e);
+            e.printStackTrace();
         } finally {
             DBClose.close(con, pstmt, rs);
         }//end
@@ -183,6 +202,9 @@ public class BbsFreeDAO {
           pstmt.setInt(1, dto.getWno());
           pstmt.setString(2, dto.getWpasswd());
           cnt = pstmt.executeUpdate();
+          if(cnt!=0) {                         //->자식글이 있는 상태에서 부모글만 지우면 무한루프.
+        	  delete_child(dto.getWno());	   //->부모글이 지워지면 자식글도 같이 지워줘야함
+          }//if end							  
         } catch (Exception e) {
             System.out.println("삭제실패"+e);
         } finally {
@@ -191,6 +213,34 @@ public class BbsFreeDAO {
         return cnt;
     }//delete() end
     
+    private void delete_child(int no) throws Exception {
+    	StringBuilder sql = new StringBuilder();
+    	sql.append(" SELECT wno, wnum "); 
+    	sql.append(" FROM bbsFree ");
+    	sql.append(" WHERE wnum=? ");
+    	PreparedStatement pstmt = con.prepareStatement(sql.toString()); 
+    	pstmt.setInt(1, no);
+    	ResultSet rs=pstmt.executeQuery(); 
+    	
+    	while(rs.next()) {
+	    	delete_child(rs.getInt("wno")); //delete_childe()로 가장 하위의 글부터 찾아서 재귀로 동작함
+	    	delete_go(rs.getInt("wno")); 		
+    	}//end
+    	return;
+    }//delete_child() end
+    
+    private void delete_go(int no) throws Exception {
+    	StringBuilder sql = new StringBuilder();
+    	sql.append(" DELETE FROM bbsFree ");		
+    	sql.append(" WHERE wno=? ");
+    	PreparedStatement pstmt = con.prepareStatement(sql.toString()); 
+    	pstmt.setInt(1, no);
+    	pstmt.executeUpdate();
+    }//delete_go() end			
+    							//1)delete_child()로 자식글 찾아내고
+    							//2)delete_go()가 찾은 글 삭제함
+    							//3)delete_childe()로 가장 하위의 글부터 찾아서 재귀로 동작함
+    							//4)본글 또는 댓글을 삭제해도 그 밑에 작성된 댓글이나 대댓글도 같이 삭제됨
     
     public int update(BbsFreeDTO dto) {
         int cnt = 0;
@@ -226,11 +276,14 @@ public class BbsFreeDAO {
    		 pstmt.setInt(1, wno);
    		 pstmt.executeUpdate();
    		 return true;
-   	 }catch(SQLException e) {
-   		 e.printStackTrace();
-   	 }
-   	 return false;
-    }
+   	 }catch (Exception e) {
+         System.out.println("조회수 출력 실패"+e);
+      } finally {
+          DBClose.close(con, pstmt);
+      }//end
+   	 	return false;
+    }//increment_view_count() end
+    
     private String setCode(String lcode) {
     	String code_val="영어";
     	switch(lcode) {
@@ -239,9 +292,9 @@ public class BbsFreeDAO {
     	case "RE001" : code_val="후기";break;
     	case "LI001" : code_val="자격증";break;
     	case "SH001" : code_val="자료공유";break;
-    	}
-    	return code_val+lcode;
-    }
+    	}//switch() end
+    	return code_val+"-"+lcode;
+    }// setCode() end
   
 
 }//class end

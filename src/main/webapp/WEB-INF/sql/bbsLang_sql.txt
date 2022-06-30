@@ -3,7 +3,9 @@ CREATE TABLE bbsLang (
    wtitle   VARCHAR2(50)   ,              
    wcontent VARCHAR2(2000) ,               
    wpasswd  VARCHAR2(10)   ,               
-   userid   VARCHAR2(20)  ,            
+   userid   VARCHAR2(20)  ,  
+   filename VARCHAR2(255) ,                      
+   filesize NUMBER        DEFAULT 0 NULL,          
    wdate    DATE           DEFAULT SYSDATE NULL,   
    mdate    DATE           DEFAULT SYSDATE NULL ,
    wview    NUMBER(10)     DEFAULT 0 NOT NULL ,     
@@ -17,6 +19,6 @@ CREATE TABLE bbsLang (
 create sequence Lang_seq;
 
 
-INSERT INTO BBSLANG(wno, wcontent, lcode, wtitle, userid,  wview, wpasswd, wdate, mdate) VALUES (Lang_seq.nextval, 1, 2, 3, 4, 5, 6, SYSDATE, SYSDATE);
+INSERT INTO BBSLANG(wno, wcontent, lcode, wtitle, userid, filename, filesize, wview, wpasswd, wdate, mdate) VALUES (Lang_seq.nextval, 1, 2, 3, 4, 5, 6, 7, 8, SYSDATE, SYSDATE);
 
 commit;

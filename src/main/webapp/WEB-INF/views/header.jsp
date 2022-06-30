@@ -13,7 +13,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
    <link rel="stylesheet" href="../css/project.css">
-   <script src="../js/myscript_member.js"></script> <!-- 6/20 적용했습니다 -->
+   <script src="../js/myscript.js"></script> <!-- 6/20 적용했습니다 -->
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -40,9 +40,8 @@
         <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" >게시판<span class="caret"></span></a>
         <ul class="dropdown-menu">
-       		<li><a href="#">언어별 스터디 게시판</a></li>
-            <li><a href="#">자료 공유 게시판</a></li>
-            <li><a href="#">자유 게시판</a></li> 
+       		<li><a href="/bbsLang/list.do">외국어 스터디 게시판</a></li>
+            <li><a href="/bbsFree/list.do">자유 게시판</a></li> 
          </ul>
          </li>
          <li class="dropdown">
@@ -70,17 +69,7 @@
             <li><a href="#">신고하기</a></li> 
           </ul>
         </li>
-<li>
-
-<%
-		//로그인하면 헤더의 로그인 버튼이 로그아웃 버튼으로 바뀌도록 함
-        if (session.getAttribute("s_userid")==null||session.getAttribute("s_upw")==null||session.getAttribute("s_ulevel")==null){ 	
-			out.println("<a href='./member/loginform.do'>로그인</a>");
-        }else {
-        	out.println("<a href='./member/logout.do'>로그아웃</a>");
-        }//if end
-%>
-     	</li>
+     		 <li><a href="loginform.do">로그인</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
       </ul>
     </div>

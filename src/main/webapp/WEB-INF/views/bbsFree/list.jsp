@@ -11,10 +11,13 @@
 	left:300px;
 }
 </style>
-<div class="title">게시판 목록</div>
+<div class="title">자유 게시판</div>
 	<div class="content" style='margin-bottom:10px;'>
 		<div class='bbsfree-bt'>
-		<input type="button" value="게시물 등록" onclick="location.href='create.do';" class='btn btn-secondary'>
+		<form method='get' action='search.do'>
+		<input type='text' style='' name='search'>
+		<button>검색</button></form>
+		<input type="button" value="글쓰기" onclick="location.href='create.do';" class='btn btn-secondary'>
 		<input type="button" value="HOME"   onclick="location.href='/home.do'"  class='btn btn-secondary'>
 		</div>
 	</div>
@@ -26,8 +29,7 @@
 		<th>카테고리</th>
 		<th>제목</th>
 		<th>작성자</th>
-		<th>최초작성일</th>
-		<th>최근수정일</th>
+		<th>작성일</th>
 		<th>조회수</th>
 		
 	</tr>
@@ -38,17 +40,21 @@
 		</tr>
 	</c:if>
 	<c:set var="now" value="<%=new Date()%>"/>
-
-	<c:forEach var="dto" items="${list}">
+	<c:set var="cnt" value="${list.size() }"/>
+	<c:forEach var="dto" items="${list}" varStatus="stat">
 	
-		<tr>	
-			<td>${dto.ccode}</td>
-			<td><a href="read.do?wno=${dto.wno}">${dto.wtitle}</a></td>
+		<tr>
+			<td>${cnt}</td>	
+			<td>${dto.ccode.split("-")[0]}</td>
+			<td style='text-align:left;'>
+			<c:forEach var="i" begin="1" end="${dto.windent}" step="1">&nbsp;&nbsp;
+			</c:forEach>
+			${dto.windent>0 ? '┗' : ''}<a href="read.do?wno=${dto.wno}">${dto.wtitle}${Utility.getNew(now,dto.wdate) ? '<img src="../images/new.gif">' : ' '  } ${dto.wview>=50 ? '<img src="../images/hot.gif">' : ' '}</a></td>
 			<td>${dto.userid}</td>
 			<td>${fn:substring(dto.wdate,0,10)}</td>
-			<td>${fn:substring(dto.mdate,0,10)}</td>
 			<td>${dto.wview}</td> 
 		</tr>
+		<c:set var="cnt" value="${cnt-1 }"/>
 	</c:forEach>
 	
 	</table>

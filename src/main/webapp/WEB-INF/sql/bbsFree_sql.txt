@@ -4,7 +4,9 @@ CREATE TABLE bbsFree (
    ccode    VARCHAR2(10)   NOT NULL,        
    wcontent VARCHAR2(2000) ,               
    wpasswd  VARCHAR2(10)   ,                  
-   userid   VARCHAR2(20)  ,         
+   userid   VARCHAR2(20)   ,    
+   filename VARCHAR2(255)  ,                      
+   filesize NUMBER         DEFAULT 0 NULL,   
    wdate    DATE           DEFAULT SYSDATE NULL,   
    mdate    DATE           DEFAULT SYSDATE NULL ,   
    wview    NUMBER(10)     DEFAULT 0 NOT NULL ,               
@@ -17,6 +19,6 @@ CREATE TABLE bbsFree (
 create sequence Free_seq;
 
 
-INSERT INTO BBSFREE(wno, wtitle, ccode, wcontent, userid,  wview, wpasswd, wdate, mdate) VALUES (Free_seq.nextval, 1, 2, 3, 4, 5, 6, SYSDATE, SYSDATE);
+INSERT INTO BBSFREE(wno, wtitle, ccode, wcontent, userid, filename, filesize, wview, wpasswd, wdate, mdate) VALUES (Free_seq.nextval, 1, 2, 3, 4, 5, 6, 7, 8, SYSDATE, SYSDATE);
 
 commit;

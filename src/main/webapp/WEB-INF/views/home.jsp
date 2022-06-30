@@ -43,7 +43,7 @@
         <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" >게시판<span class="caret"></span></a>
         <ul class="dropdown-menu">
-       		<li><a href="/bbsLang/list.do">언어별 스터디 게시판</a></li>
+       		<li><a href="/bbsLang/list.do">외국어 스터디 게시판</a></li>
             <li><a href="/bbsFree/list.do">자유 게시판</a></li> 
          </ul>
          </li>
