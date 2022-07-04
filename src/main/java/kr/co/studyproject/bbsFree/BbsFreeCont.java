@@ -26,107 +26,105 @@ public class BbsFreeCont {
 	}//end
 
 
-//결과확인 http://localhost:9100/bbsFree/create.do
-
-@RequestMapping(value = "bbsFree/create.do", method = RequestMethod.GET)
-public String createForm() {
-	return "bbsFree/createForm";  // /WEB-INF/views/bbsFree/createForm.jsp
-}//createForm() end
-
-
-
-@RequestMapping(value = "bbsFree/create.do", method = RequestMethod.POST)
-public ModelAndView createProc(@ModelAttribute BbsFreeDTO dto, HttpServletRequest request,MultipartFile file) {
-	                          
-	String filename = file.getOriginalFilename();
-	File target = new File("C://java202202//workspace_spring//spring_studyproject//src//main//webapp//storage",filename);
-	try {
-		FileCopyUtils.copy(file.getBytes(), target);
-	} catch (IOException e) {
+	//결과확인 http://localhost:9100/bbsFree/create.do
+	
+	@RequestMapping(value = "bbsFree/create.do", method = RequestMethod.GET)
+	public String createForm() {
+		return "bbsFree/createForm";  // /WEB-INF/views/bbsFree/createForm.jsp
+	}//createForm() end
+	
+	
+	
+	@RequestMapping(value = "bbsFree/create.do", method = RequestMethod.POST)
+	public ModelAndView createProc(@ModelAttribute BbsFreeDTO dto, HttpServletRequest request,MultipartFile file) {
+		                          
+		String filename = file.getOriginalFilename();
+		File target = new File("C://java202202//workspace_spring//spring_studyproject//src//main//webapp//storage",filename);
+		try {
+			FileCopyUtils.copy(file.getBytes(), target);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}//end
 		
-		e.printStackTrace();
-	}//end
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("bbsFree/msgView");
+		dto.setFilename(filename);
+		dto.setFilesize(file.getSize());
+		dto.setIp(request.getRemoteAddr());
+		dto.setUserid("aa");  //(String)request.getSession().getAttribute("세션명")  
+		int cnt=dao.create(dto);
+		if(cnt==0) {
+	        String msg="<p>게시물 등록 실패</p>";
+	        String img="<img src='../images/fail.png'>";
+	        String link1="<input type='button' value='다시 시도' onclick='javascript:history.back()'>";
+	        String link2="<input type='button' value='게시판 목록' onclick='location.href=\"list.do\"'>";
+	        mav.addObject("msg", msg);
+	        mav.addObject("img", img);
+	        mav.addObject("link1", link1);
+	        mav.addObject("link2", link2);
+		}else {
+	        String msg="<p>게시물 등록 성공</p>";
+	        String img="<img src='../images/sound.png'>";
+	        String link1="<input type='button' value='계속 등록' onclick='location.href=\"create.do\"'>";
+	        String link2="<input type='button' value='게시판 목록' onclick='location.href=\"list.do\"'>";
+	        mav.addObject("msg", msg);
+	        mav.addObject("img", img);
+	        mav.addObject("link1", link1);
+	        mav.addObject("link2", link2); 
+		}//if end
+		
+		return mav;
+		
+	}//createProc() end
 	
-	ModelAndView mav=new ModelAndView();
-	mav.setViewName("bbsFree/msgView");
-	dto.setFilename(filename);
-	dto.setFilesize(file.getSize());
-	dto.setIp(request.getRemoteAddr());
-	dto.setUserid("aa");  //(String)request.getSession().getAttribute("세션명")  
-	int cnt=dao.create(dto);
-	if(cnt==0) {
-        String msg="<p>게시물 등록 실패</p>";
-        String img="<img src='../images/fail.png'>";
-        String link1="<input type='button' value='다시 시도' onclick='javascript:history.back()'>";
-        String link2="<input type='button' value='게시판 목록' onclick='location.href=\"list.do\"'>";
-        mav.addObject("msg", msg);
-        mav.addObject("img", img);
-        mav.addObject("link1", link1);
-        mav.addObject("link2", link2);
-	}else {
-        String msg="<p>게시물 등록 성공</p>";
-        String img="<img src='../images/sound.png'>";
-        String link1="<input type='button' value='계속 등록' onclick='location.href=\"create.do\"'>";
-        String link2="<input type='button' value='게시판 목록' onclick='location.href=\"list.do\"'>";
-        mav.addObject("msg", msg);
-        mav.addObject("img", img);
-        mav.addObject("link1", link1);
-        mav.addObject("link2", link2); 
-	}//if end
+	@RequestMapping("bbsFree/read.do")
+	public ModelAndView read(@ModelAttribute BbsFreeDTO dto) {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("bbsFree/read");
+		dao.increment_view_count(dto.getWno());
+		mav.addObject("read", dao.read(dto.getWno()));
+		return mav;
+	}//read() end
 	
-	return mav;
+	@RequestMapping(value = "bbsFree/delete.do", method = RequestMethod.GET)
+	public ModelAndView delete_get(@ModelAttribute BbsFreeDTO dto) {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("bbsFree/deleteForm");
+		return mav;
+		
+	}//delete_get() end
 	
-}//createProc() end
-
-@RequestMapping("bbsFree/read.do")
-public ModelAndView read(@ModelAttribute BbsFreeDTO dto) {
-	ModelAndView mav=new ModelAndView();
-	mav.setViewName("bbsFree/read");
-	dao.increment_view_count(dto.getWno());
-	mav.addObject("read", dao.read(dto.getWno()));
-	return mav;
-}//read() end
-
-@RequestMapping(value = "bbsFree/delete.do", method = RequestMethod.GET)
-public ModelAndView delete_get(@ModelAttribute BbsFreeDTO dto) {
-	ModelAndView mav=new ModelAndView();
-	mav.setViewName("bbsFree/deleteForm");
-	return mav;
-}//delete_get() end
-
-@RequestMapping(value = "bbsFree/delete.do", method = RequestMethod.POST)
-public ModelAndView delete(@ModelAttribute BbsFreeDTO dto) {
-	ModelAndView mav=new ModelAndView();
-	int res = dao.delete(dto);
-	if(res==0) {
-		mav.setViewName("bbsFree/msgView2");
-		  String msg="<p>비밀번호가 틀렸습니다</p>";
-		  String img="<img src='../images/fail.png'>";
-		  String link2="<input type='button' value='게시판 목록' onclick='location.href=\"list.do\"'>";
-		  mav.addObject("msg", msg);
-		  mav.addObject("img", img);
-		  mav.addObject("link2", link2);
-	}else {
-		mav.setViewName("redirect:/bbsFree/list.do");
-	}//if end
-	return mav;
-}//delete() end
-
-@RequestMapping(value = "bbsFree/update.do", method = RequestMethod.GET)
-public ModelAndView update_get(@ModelAttribute BbsFreeDTO dto) {
-	ModelAndView mav=new ModelAndView();
-	mav.setViewName("bbsFree/updateForm");
-	mav.addObject("update", dao.read(dto.getWno()));
-	return mav;
-}//update_get() end
-
-@RequestMapping(value = "bbsFree/update.do", method = RequestMethod.POST)
-public ModelAndView update(@ModelAttribute BbsFreeDTO dto,MultipartFile file , HttpServletRequest request) {
-	String filename=null;
-	long filesize=0;
-	if(file!=null) {
-		filename = file.getOriginalFilename();
-		filesize=file.getSize();
+	@RequestMapping(value = "bbsFree/delete.do", method = RequestMethod.POST)
+	public ModelAndView delete(@ModelAttribute BbsFreeDTO dto) {
+		ModelAndView mav=new ModelAndView();
+		int res = dao.delete(dto);
+		if(res==0) {
+			mav.setViewName("bbsFree/msgView2");
+			  String msg="<p>비밀번호가 틀렸습니다</p>";
+			  String img="<img src='../images/fail.png'>";
+			  String link2="<input type='button' value='게시판 목록' onclick='location.href=\"list.do\"'>";
+			  mav.addObject("msg", msg);
+			  mav.addObject("img", img);
+			  mav.addObject("link2", link2);
+		}else {
+			mav.setViewName("redirect:/bbsFree/list.do");
+		}//if end
+		return mav;
+	}//delete() end
+	
+	@RequestMapping(value = "bbsFree/update.do", method = RequestMethod.GET)
+	public ModelAndView update_get(@ModelAttribute BbsFreeDTO dto) {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("bbsFree/updateForm");
+		mav.addObject("update", dao.read(dto.getWno()));
+		return mav;
+	}//update_get() end
+	
+	@RequestMapping(value = "bbsFree/update.do", method = RequestMethod.POST)
+	public ModelAndView update(@ModelAttribute BbsFreeDTO dto,MultipartFile file , HttpServletRequest request) {
+		
+		String filename = file.getOriginalFilename();
+		long filesize=file.getSize();
 		File target = new File("C://java202202//workspace_spring//spring_studyproject//src//main//webapp//storage",filename);
 		try {
 			FileCopyUtils.copy(file.getBytes(), target);
@@ -135,50 +133,60 @@ public ModelAndView update(@ModelAttribute BbsFreeDTO dto,MultipartFile file , H
 			filename = request.getParameter("tmpfile");
 			filesize = Long.parseLong(request.getParameter("tmpsize"));
 		}//end
-	}//if end
-	ModelAndView mav=new ModelAndView();
-	mav.setViewName("bbsFree/read");
-	dto.setFilename(filename);
-	dto.setFilesize(filesize);
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("bbsFree/read");
+		dto.setFilename(filename);
+		dto.setFilesize(filesize);
+		
+		dao.update(dto);
+		mav.addObject("read", dao.read(dto.getWno()));
+		return mav;
+	}//update() end
 	
-	dao.update(dto);
-	mav.addObject("read", dao.read(dto.getWno()));
-	return mav;
-}//update() end
-
-@RequestMapping("bbsFree/list.do")
-public ModelAndView list() {
-	ModelAndView mav=new ModelAndView();
-	mav.setViewName("bbsFree/list");
-	mav.addObject("list", dao.list());
-	return mav;
-}//list() end
-
-@RequestMapping(value="bbsFree/reply.do", method = RequestMethod.GET)
-public ModelAndView reply_create(@ModelAttribute BbsFreeDTO dto) {
-	ModelAndView mav=new ModelAndView();
-	mav.setViewName("bbsFree/reply");
-	mav.addObject("read", dao.read(dto.getWno()));
-	return mav;
-}//reply_create() end
-
-@RequestMapping(value="bbsFree/reply.do", method = RequestMethod.POST)
-public ModelAndView reply(@ModelAttribute BbsFreeDTO dto, HttpServletRequest request) {
-	ModelAndView mav=new ModelAndView();
-	mav.setViewName("bbsFree/reply");
-	dto.setIp(request.getRemoteAddr());
-	dto.setUserid("bb");  //(String)request.getSession().getAttribute("세션명")  
-	dao.create(dto);
-	mav.setViewName("redirect:/bbsFree/list.do");
-	return mav;
-}//reply() end
-
-@RequestMapping("bbsFree/search.do")
-public ModelAndView search(HttpServletRequest request) {
-	ModelAndView mav=new ModelAndView();
-	mav.setViewName("bbsFree/list");
-	mav.addObject("list", dao.search(request.getParameter("search")));
-	return mav;
-}//search() end
+	@RequestMapping("bbsFree/list.do")
+	public ModelAndView list() {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("bbsFree/list");
+		mav.addObject("list", dao.list());
+		return mav;
+	}//list() end
+	
+	@RequestMapping(value="bbsFree/reply.do", method = RequestMethod.GET)
+	public ModelAndView reply_create(@ModelAttribute BbsFreeDTO dto) {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("bbsFree/reply");
+		mav.addObject("read", dao.read(dto.getWno()));
+		return mav;
+	}//reply_create() end
+	
+	@RequestMapping(value="bbsFree/reply.do", method = RequestMethod.POST)
+	public ModelAndView reply(@ModelAttribute BbsFreeDTO dto, HttpServletRequest request,MultipartFile file) {
+		String filename = file.getOriginalFilename();
+		File target = new File("C://java202202//workspace_spring//spring_studyproject//src//main//webapp//storage",filename);
+		try {
+			FileCopyUtils.copy(file.getBytes(), target);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}//end
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("bbsFree/reply");
+		dto.setFilename(filename);
+		dto.setFilesize(file.getSize());
+		dto.setIp(request.getRemoteAddr());
+		dto.setUserid("bb");  //(String)request.getSession().getAttribute("세션명")  
+		dao.create(dto);
+		mav.setViewName("redirect:/bbsFree/list.do");
+		return mav;
+	}//reply() end
+	
+	@RequestMapping("bbsFree/search.do")
+	public ModelAndView search(HttpServletRequest request) {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("bbsFree/list");
+		mav.addObject("list", dao.search(request.getParameter("search")));
+		return mav;
+	}//search() end
 
 }//class end
