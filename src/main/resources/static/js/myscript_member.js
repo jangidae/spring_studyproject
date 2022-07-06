@@ -65,60 +65,40 @@ function agreeCheck(){//회원가입약관에 동의했는지
 }//agreeCheck()
 
 
-function idCheck(){//아이디 중복확인용 함수
-	
-	//bootstrap 모달창(자식인 모달창을 끄지 않는 한 부모창에 손댈 수 없음)
-	//->부모창과 자식창이 한몸으로 구성되어 있음
-	//->참조 https://www.w3schools.com/bootstrap/bootstrap_modal.asp
-	
-	//새창만들기 (자식인 팝업창과 부모창이 서로 독립적)
-	//->부모창과 자식창이 별개로 구성되어 있음
-	//->모바일에 기반을 둔 프론트단에서는 사용하지 않는 것을 추천
-	//참조 https://www.w3schools.com/jsref/met_win_open.asp
-	//window.open("파일명","새창이름","다양한옵션들")
-	window.open("idCheckForm.jsp","idwin","width=400,height=350");//옵션구분할때 ;대신 ,
-	
-	
-	
-}//idCheck() end
-
 
 function memberCheck(){//회원가입 유효성 검사
 	
 	//1)아이디 5~10글자 인지?
-	var id=document.getElementById("id").value; //아이디 가져오기
-    id=id.trim(); //좌우 공백제거하기
-	if(!(id.length>=5 && id.length<=10)){
+	var userid=document.getElementById("userid").value; //아이디 가져오기
+    userid=userid.trim(); //좌우 공백제거하기
+	if(!(userid.length>=5 && userid.length<=10)){
 	    alert("아이디는 5~10글자 이내로 입력해주세요");
-    	document.getElementById("id").focus();     
+    	document.getElementById("userid").focus();     
     	return false;                                 
 	}//if end
 	
 	
 	
     //2)비밀번호 5~10글자 인지?
-    var passwd=document.getElementById("passwd").value; //아이디 가져오기
-    passwd=passwd.trim(); //좌우 공백제거하기
-    if(!(passwd.length>=5 && passwd.length<=10)){
+    var upw=document.getElementById("upw").value; //아이디 가져오기
+    upw=upw.trim(); //좌우 공백제거하기
+    if(!(upw.length>=5 && upw.length<=10)){
 	    alert("비밀번호는 5~10글자 이내로 입력해주세요");
-    	document.getElementById("passwd").focus();     
+    	document.getElementById("upw").focus();     
     	return false;
     }//if end
-	
-	
-    //3)비밀번호와 비밀번호확인이 서로 일치하는지?
 
-    //4)이름 두글자 이상 인지?
-    var mname=document.getElementById("mname").value; //아이디 가져오기
-    mname=mname.trim(); //좌우 공백제거하기
-    if(mname.length<=2){
+    //3)이름 두글자 이상 인지?
+    var uname=document.getElementById("uname").value; //아이디 가져오기
+    uname=uname.trim(); //좌우 공백제거하기
+    if(uname.length<=2){
         alert("이름은 두 글자 이상 입력해주세요");
-        document.getElementById("mname").focus(); 
+        document.getElementById("uname").focus(); 
         return false; //전송하지 않음
     }//if end
     
     
-    //5)이메일 5글자 인지?
+    //4)이메일 5글자 인지?
     var email=document.getElementById("email").value; //아이디 가져오기
     email=email.trim(); //좌우 공백제거하기
     if(email.length<=4){
@@ -127,16 +107,25 @@ function memberCheck(){//회원가입 유효성 검사
         return false; //전송하지 않음
     }//if end
     
-    
-    //6)직업을 선택했는지?
-    
 }//memberCheck() end
 
 
 
 
 
+function idCheck(){//아이디 중복확인용 함수
 
+	window.open("idCheckForm.do","idwin","width=400,height=350");//옵션구분할때 ;대신 ,	
+	
+	
+}//idCheck() end
+
+
+function emailCheck(){//이메일 중복확인용 함수
+	window.open("emailCheckForm.do","emailwin","width=400,height=350");
+	
+	
+}//emailCheck() end
 
 
 
