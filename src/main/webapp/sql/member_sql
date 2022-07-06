@@ -1,0 +1,36 @@
+--회원정보테이블 sql문
+
+drop table member;
+select * from member;
+COMMIT;
+
+--회원정보 테이블 생성
+create table member (
+                userid       varchar2(20)     primary key
+                ,ulevel      char(12)
+                ,upw      varchar2(20)
+                ,uname         varchar2(20)
+                ,email         varchar2(50)
+                ,phnum        number(11)
+                ,introd          varchar2(100)
+	   );
+
+--시퀀스생성
+create sequence member_seq;
+drop sequence member_seq;
+
+
+--행추가
+INSERT INTO member VALUES ('soldesk', 'MASTER', '12341234', '솔데', 'soldesk@naver.com', '1097993357',  '열심히 해봅시다');
+
+INSERT INTO member VALUES ('iidae', 'MASTER', 'dkdtmxk12', '장이대', 'iidae@naver.com', '1098993357',  '열심히 해봅시다');
+
+
+INSERT INTO tb_user VALUES ('Elki751', 'A', 'aksgdl893', '이덕모', 'elki751@gmail.com', '1045626166',  '방학동안 열심히 해봐요');
+
+INSERT INTO member VALUES ('qwerty123', 'B', 'ahffudhk9029', '문하빈', 'seol999@gmail.com', '1012314453', NULL); --마지막 한줄소개 NULL
+
+INSERT INTO tb_user VALUES ('chocojoa', 'C', 'gjfj098787', '임채린', 'choco@naver.com', '1065496321', NULL ); --마지막 한줄소개 NULL
+
+
+COMMIT;

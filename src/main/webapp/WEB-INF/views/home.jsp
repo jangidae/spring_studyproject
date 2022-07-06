@@ -37,20 +37,20 @@
         <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" >공지사항<span class="caret"></span></a>
         <ul class="dropdown-menu">
-        	<li><a href="#">공지사항</a></li>
+        	<li><a href="Notice/noticeList.do">공지사항</a></li>
         </ul>
        </li>
-        <li class="dropdown">
+       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" >게시판<span class="caret"></span></a>
         <ul class="dropdown-menu">
        		<li><a href="/bbsLang/list.do">외국어 스터디 게시판</a></li>
             <li><a href="/bbsFree/list.do">자유 게시판</a></li> 
          </ul>
          </li>
-         <li class="dropdown">
+        <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" >스터디 그룹 게시판<span class="caret"></span></a>
         <ul class="dropdown-menu">
-       		<li><a href="#">그룹 구해요</a></li>
+       		<li><a href="/studygroup/list.do">그룹 구해요</a></li>
             <li><a href="#">멤버 구해요</a></li>
             <li><a href="#">내 그룹 게시판</a></li> 
          </ul>
@@ -58,18 +58,15 @@
          <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" >마이페이지<span class="caret"></span></a>
         <ul class="dropdown-menu">
-       		<li><a href="#">내 정보</a></li>
-            <li><a href="#">내 그룹정보</a></li>
-            <li><a href="#">내 다이어리</a></li>
-            <li><a href="#">내 활동정보</a></li> 
+       		<li><a href='./member/memberModifyForm.do'>내 정보 수정</a></li> 
          </ul>
          </li>
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="location.href='mypage/list.do'">고객센터 <span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">고객센터 <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">건의사항</a></li>
-            <li><a href="#">자주 묻는 질문</a></li>
-            <li><a href="#">신고하기</a></li> 
+          	<li><a href="/center/list.do">신고하기</a></li>
+            <li><a href="/fqa/ansForm.do">FQA</a></li>
+          
           </ul>
         </li>
         <li>

@@ -1,0 +1,23 @@
+CREATE TABLE cenTer (
+   wno      NUMBER(5)      NOT NULL PRIMARY KEY,
+   wtitle   VARCHAR2(50)   ,             
+   wcontent VARCHAR2(2000) ,              
+   wpasswd  VARCHAR2(10)   ,             
+   userid   VARCHAR2(20)  ,              
+   wdate    DATE           DEFAULT SYSDATE NULL,  
+   mdate    DATE           DEFAULT SYSDATE NULL ,  
+   wview    NUMBER(10)     DEFAULT 0 NOT NULL ,   
+   wcode    VARCHAR2(10)  ,               
+   windent  NUMBER(5)      DEFAULT 0 NULL ,   
+   wnum     NUMBER(5)      DEFAULT 0 NULL,      
+   ip       VARCHAR2(15)                 
+);
+
+
+create sequence Cen_seq;
+
+commit;
+
+INSERT INTO CENTER(wno,wcontent, wcode, wtitle, userid,  wview, wpasswd, wdate, mdate) VALUES (Cen_seq.nextval, 1, 2, 3, 4, 5, 6, SYSDATE, SYSDATE)
+
+INSERT INTO CENTER(wno,wcontent, wcode, wtitle, userid,  wview, wpasswd, wdate, mdate) VALUES (Cen_seq.nextval, 1, 2, 3, 4, 5, 6, SYSDATE, SYSDATE)

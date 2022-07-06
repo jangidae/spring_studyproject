@@ -1,0 +1,16 @@
+-- studygroup 팀 구인 테이블 생성
+
+CREATE TABLE studygroup(
+
+  	wno 		NUMBER		   NOT NULL PRIMARY KEY,	-- 글 번호 PK
+  	wid 		VARCHAR2(255)  NOT NULL,			    -- 아이디
+  	title 		VARCHAR2(255)  NOT NULL,			    -- 제목
+  	wdate       date           default  sysdate,   	    -- 글작성일
+  	wcontent 	VARCHAR2(1500) NOT NULL, 		        -- 게시물 내용
+  	wviewcount	NUMBER		   NOT NULL					-- 조회수
+);
+
+
+
+--시퀸스 생성
+create sequence studygroup;

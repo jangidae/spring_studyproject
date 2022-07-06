@@ -15,7 +15,6 @@
 			<th> 카테고리 </th>
 			<td> 
 				<select class="form-select" aria-label="Default select example" style='width:710px;' name='ccode'>
-  					<option selected>카테고리를 선택해주세요</option>
   					<option value="HU001">유머</option>
   					<option value="ST001">공부</option>
   					<option value="RE001">후기</option>
@@ -30,7 +29,7 @@
 	    </tr>
 	    <tr>
 	      <th>내용</th>
-	      <td><textarea class="form-control" placeholder="내용을 입력해주세요" id="floatingTextarea" cols='30' rows='15' name='wcontent'>
+	      <td><textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" cols='30' rows='15' name='wcontent'>
 	      ${update.wcontent}</textarea></td>
 	    </tr>
 	     <c:if test="${update.filename !=null }">
@@ -50,17 +49,11 @@
 	    </table>
 
 	    <div class="btn-group" role="group" aria-label="Basic example">
-	       <input type="button" value="수정 완료" onclick="chk()">
+	       <input type='submit' value='수정'>
 		  <input type="button" value="목록" onclick="location.href='list.do'">
 		  <input type="button" value="HOME"   onclick="location.href='/home.do'">	
 	    </div>  
 	</form>
-<script>
-	function chk(){
-		let flag = confirm("수정 하시겠습니까? ");
-		if(flag) document.frm.submit();
-	}
-</script>
 
 <!-- 본문 끝 -->
 <%@ include file="../footer.jsp" %>
@@ -69,7 +62,7 @@
 	let code='${update.ccode}'.toLowerCase();
 	let scode = ["hu","st","re","li","sh"];
 	i=0;
-	for(i=0; i<scode.length; i++){
+	for(; i<scode.length; i++){
 		if(code.indexOf(scode[i])!=-1 )
 			break;
 	}

@@ -1,0 +1,55 @@
+-- notice_sql.txt
+
+
+create table tb_notice(
+           wno          number(5)         not null primary key,
+           ncode        varchar2(10)	 ,
+           wtitle       varchar2(50)      ,
+           wcontent     varchar2(2000)    ,
+           userid       varchar2(20)      ,
+           poster       varchar2(255)      DEFAULT 'poster.jpg' ,
+           filename     varchar2(255)     ,
+           filesize     number            default 0 ,
+           wdate        date              default sysdate null,
+           wview        char(10)        default 'Y' not null,
+           windent      number(5)         default 0   null
+   );
+
+drop table tb_notice;
+
+
+insert into tb_notice (wno, ncode, wtitle, wcontent, userid, poster, filename, filesize, wview, wdate   )
+values (1, '공지','게임계 3대 명검', '연장 긴급 정기', 'webmaster', '이불 밖은 위험해.jpg', '점검', 234, 24, sysdate);
+
+
+--시퀀스 생성
+create sequence tb_notice_seq;
+drop sequence tb_notice_seq;
+
+
+commit;
+
+-- 행추가
+insert into tb_notice
+values
+
+-- 행목록
+select * from tb_notice
+where  ='Y' and ?=1
+order by ?  desc;
+
+select wno, wtitle, wcontent, wdate
+from tb_notice
+order by wtitle desc, wdate asc;
+
+--행삭제
+delete from tb_notice where wno=? 
+
+--행 수정
+update from set wtitle=?, wcontent=?
+where wno=?
+
+
+
+insert into tb_notice ()
+value 

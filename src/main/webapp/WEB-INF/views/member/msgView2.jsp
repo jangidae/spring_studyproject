@@ -3,8 +3,9 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-	${requestScope.message}
-	<p>${requestScope.link}</p>
+	<p>${requestScope.message1}</p>
+	<p>${requestScope.link1}</p>
+	<p>${requestScope.link2}</p>
 
 <!-- 본문 끝 -->
 <%@ include file="../footer.jsp" %>

@@ -13,7 +13,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
    <link rel="stylesheet" href="../css/project.css">
-   <script src="../js/myscript.js"></script> <!-- 6/20 적용했습니다 -->
+   <script src="../js/myscript_member.js"></script> <!-- 6/20 적용했습니다 -->
+   <script src="../js/jquery-3.6.0.min.js"></script> <!-- 6/20 적용했습니다 -->
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -34,7 +35,7 @@
         <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" >공지사항<span class="caret"></span></a>
         <ul class="dropdown-menu">
-        	<li><a href="#">공지사항</a></li>
+        	<li><a href="/Notice/noticeList.do">공지사항</a></li>
         </ul>
        </li>
         <li class="dropdown">
@@ -44,10 +45,10 @@
             <li><a href="/bbsFree/list.do">자유 게시판</a></li> 
          </ul>
          </li>
-         <li class="dropdown">
+          <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" >스터디 그룹 게시판<span class="caret"></span></a>
         <ul class="dropdown-menu">
-       		<li><a href="#">그룹 구해요</a></li>
+       		<li><a href="/studygroup/list.do">그룹 구해요</a></li>
             <li><a href="#">멤버 구해요</a></li>
             <li><a href="#">내 그룹 게시판</a></li> 
          </ul>
@@ -55,21 +56,28 @@
          <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" >마이페이지<span class="caret"></span></a>
         <ul class="dropdown-menu">
-       		<li><a href="#">내 정보</a></li>
-            <li><a href="#">내 그룹정보</a></li>
-            <li><a href="#">내 다이어리</a></li>
-            <li><a href="#">내 활동정보</a></li> 
+       		<li><a href='../member/memberModifyForm.do'>내 정보 수정</a></li>
          </ul>
          </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">고객센터 <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">건의사항</a></li>
-            <li><a href="#">자주 묻는 질문</a></li>
-            <li><a href="#">신고하기</a></li> 
+          	<li><a href="/center/list.do">신고하기</a></li>
+            <li><a href="/fqa/ansForm.do">FQA</a></li>
+       
           </ul>
         </li>
-     		 <li><a href="loginform.do">로그인</a></li>
+<li>
+
+<%
+		//로그인하면 헤더의 로그인 버튼이 로그아웃 버튼으로 바뀌도록 함
+        if (session.getAttribute("s_userid")==null||session.getAttribute("s_upw")==null||session.getAttribute("s_ulevel")==null){ 	
+			out.println("<a href='../member/loginform.do'>로그인</a>");
+        }else {
+        	out.println("<a href='../member/logout.do'>로그아웃</a>");
+        }//if end
+%>
+     	</li>
         <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
       </ul>
     </div>
