@@ -1,0 +1,40 @@
+--스터디그룹/스터디그룹원 테이블 sql문
+
+drop table studyg;
+select * from studyg;
+COMMIT;
+
+--스터디그룹 테이블 생성
+create table studyg (
+				sgno         number(10)       primary key   --그룹번호
+                ,sgname       varchar2(20)					--그룹명
+                ,sgintro      varchar2(200)					--그룹소개(생략가능)
+                ,sgmaxuserno    varchar2(20)				--최대인원수
+                ,sgselectlang  number(11)					--그룹카테고리분류
+	   );
+	  
+	   ,sgleader     varchar2(20)					--그룹장아이디
+
+--시퀀스생성
+create sequence studyg_seq;
+drop sequence studyg_seq;
+
+COMMIT;
+
+------------------------------------------------------------------------------------
+drop table studyp;
+select * from studyp;
+COMMIT;
+
+--스터디그룹원 테이블 생성
+create table studyp (
+				sgno         number(10)       Fk   --그룹번호
+                ,userid       varchar2(20)		   --그룹원아이디
+                ,sgjoind     sysdate(20)			--그룹가입일
+                ,sglevel     varchar2(20)		    --그룹원등급
+	   );
+
+--시퀀스생성
+create sequence studyp_seq;
+drop sequence studyp_seq;
+

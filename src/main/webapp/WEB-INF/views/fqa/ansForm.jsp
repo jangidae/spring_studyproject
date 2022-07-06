@@ -19,7 +19,7 @@
 	}
 </style>
 
-<h3>F Q A</h3>
+<h3>F A Q</h3>
 
 	<div class="box">
 		<button class="qBtn" type="button">스터디 멤버들과 불화나 분쟁이 발생하였나요??</button>

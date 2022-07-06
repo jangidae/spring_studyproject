@@ -6,7 +6,7 @@
 <div class="title">게시물</div>
 
 		<input type="hidden" name="wno" value="${dto.wno}">
-		<input type="hidden" name="wno"      value="${dto.wno}">    
+		<input type="hidden" name="wno" value="${dto.wno}">    
 		<table class='table'>
 		<tr>
 			<th> 카테고리 </th>

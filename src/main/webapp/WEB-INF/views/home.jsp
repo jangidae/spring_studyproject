@@ -50,6 +50,7 @@
         <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" >스터디 그룹 게시판<span class="caret"></span></a>
         <ul class="dropdown-menu">
+        	<li><a href="/studygroup/SGinsert.do">그룹 만들기</a></li>
        		<li><a href="/studygroup/list.do">그룹 구해요</a></li>
             <li><a href="#">멤버 구해요</a></li>
             <li><a href="#">내 그룹 게시판</a></li> 
@@ -65,7 +66,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">고객센터 <span class="caret"></span></a>
           <ul class="dropdown-menu">
           	<li><a href="/center/list.do">신고하기</a></li>
-            <li><a href="/fqa/ansForm.do">FQA</a></li>
+            <li><a href="/fqa/ansForm.do">FAQ</a></li>
           
           </ul>
         </li>
