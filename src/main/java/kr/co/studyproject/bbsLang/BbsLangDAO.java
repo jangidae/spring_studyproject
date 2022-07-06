@@ -267,7 +267,11 @@ public class BbsLangDAO {
     		 pstmt.executeUpdate();
     		 return true;
     	 }catch (Exception e) {
+<<<<<<< HEAD
 	            System.out.println("조회수 증가 실패"+e);
+=======
+	            System.out.println("조회수 출력 실패"+e);
+>>>>>>> 80ee1f5f581ba8e568486324a66d1e1d8827fc8f
          }finally {
             DBClose.close(con, pstmt);
          }//end
