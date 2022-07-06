@@ -8,12 +8,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
-		// http://localhost:9100/home.do
+		// http:localhost:9100/home.do
 		public HomeController() {
 			System.out.println("----homeController() 객체 생성됨 ");
 		}// end
 		
-		@RequestMapping("/home.do")  //메인화면
+		@RequestMapping("/home.do")
 		public ModelAndView home() {
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("home");
@@ -22,7 +22,9 @@ public class HomeController {
 			mav.addObject("");
 			return mav;
 		}
-		@RequestMapping("/template.do")	//템플릿
+		
+		
+		@RequestMapping("/template.do")
 		public ModelAndView template() {
 			ModelAndView tem = new ModelAndView();
 			tem.setViewName("template");
@@ -33,7 +35,6 @@ public class HomeController {
 		
 		
 		
-		
-}//class end
+}
 		
 

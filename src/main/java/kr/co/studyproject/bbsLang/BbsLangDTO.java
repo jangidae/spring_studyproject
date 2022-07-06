@@ -1,24 +1,22 @@
-package kr.co.studyproject.mypage;
+package kr.co.studyproject.bbsLang;
 
-public class MypageDTO {
-	
+public class BbsLangDTO {
 	private int wno;
 	private String wtitle;
 	private String wcontent;
 	private String wpasswd;
-	private int	wgrpno;
-	
 	private String userid;
 	private String wdate;
 	private String mdate;
 	private int wview;
-	private String	wcode;
-	
+	private String lcode;
 	private int windent;
-	private int xnum;
+	private int wnum;
 	private String ip;
 	
-	public MypageDTO() {} //기본 생성자 함수
+	public BbsLangDTO() {
+		
+	}
 
 	public int getWno() {
 		return wno;
@@ -52,13 +50,6 @@ public class MypageDTO {
 		this.wpasswd = wpasswd;
 	}
 
-	public int getWgrpno() {
-		return wgrpno;
-	}
-
-	public void setWgrpno(int wgrpno) {
-		this.wgrpno = wgrpno;
-	}
 
 	public String getUserid() {
 		return userid;
@@ -92,12 +83,12 @@ public class MypageDTO {
 		this.wview = wview;
 	}
 
-	public String getWcode() {
-		return wcode;
+	public String getLcode() {
+		return lcode;
 	}
 
-	public void setWcode(String wcode) {
-		this.wcode = wcode;
+	public void setLcode(String lcode) {
+		this.lcode = lcode;
 	}
 
 	public int getWindent() {
@@ -108,12 +99,12 @@ public class MypageDTO {
 		this.windent = windent;
 	}
 
-	public int getXnum() {
-		return xnum;
+	public int getWnum() {
+		return wnum;
 	}
 
-	public void setXnum(int xnum) {
-		this.xnum = xnum;
+	public void setWnum(int wnum) {
+		this.wnum = wnum;
 	}
 
 	public String getIp() {
@@ -124,6 +115,4 @@ public class MypageDTO {
 		this.ip = ip;
 	}
 	
-	
-
-}//class end
+}
