@@ -11,7 +11,7 @@
 	left:800px;
 }
 </style>
-<div class="title">고객센터</div>
+<div class="title"><h4>고객센터</h4></div>
 	<div class="content" style='margin-bottom:10px;'>
 		<div class='bbsfree-bt'>
 		<input type="button" value="게시물 등록" onclick="location.href='create.do?'" class='btn btn-secondary'>

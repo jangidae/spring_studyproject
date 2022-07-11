@@ -3,7 +3,8 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-    <div class="title">게시글 등록</div>
+    
+    <h4>게시글 등록</h4>
 	<form name="frm" method="post" action="create.do" enctype="multipart/form-data">
 		<table class='table'>
 		<tr>
@@ -41,11 +42,21 @@
 	    </table>
 
 	    <div class="btn-group" role="group" aria-label="Basic example">
-	       <input type='submit' value='작성완료' class="btn btn-primary">
+	       <input type='button' value='작성완료' class="btn btn-primary" onclick='check()'>
 		  <input  class="btn btn-primary" type="button" value="목록" onclick="location.href='list.do';">
 		  <input  class="btn btn-primary" type="button" value="HOME"   onclick="location.href='/home.do'">
 	    </div>  
 	</form>
+<script>
+function check(){
+	let sel = document.querySelectorAll(".form-select")[0];
+	if( sel.options[sel.selectedIndex].value == "카테고리를 선택해주세요")
+		alert("카테고리를 선택하세요");
+	else
+		document.frm.submit();
+}
+
+</script>
 
 <!-- 본문 끝 -->
 <%@ include file="../footer.jsp" %>

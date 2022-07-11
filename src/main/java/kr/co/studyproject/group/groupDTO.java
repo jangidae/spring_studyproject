@@ -1,50 +1,63 @@
 package kr.co.studyproject.group;
 
 public class groupDTO {
-		private int wno;
-		private String wid;
-		private String title;
-		private String wdate;
-		private String wcontent;
-		private int wviewcount;
+		private int sgno;
+		private String sgname;
+		private String sgleader;
+		private String sgintro;
+		private int sgmaxuserno;
+		private String sgselectlang;
+		private String sgdate;
 		
 		
-		public int getWno() {
-			return wno;
+		public int getSgno() {
+			return sgno;
 		}
-		public void setWno(int wno) {
-			this.wno = wno;
+		public void setSgno(int sgno) {
+			this.sgno = sgno;
 		}
-		public String getWid() {
-			return wid;
+		public String getSgname() {
+			return sgname;
 		}
-		public void setWid(String wid) {
-			this.wid = wid;
+		public void setSgname(String sgname) {
+			this.sgname = sgname;
 		}
-		public String getTitle() {
-			return title;
+		public String getSgleader() {
+			return sgleader;
 		}
-		public void setTitle(String title) {
-			this.title = title;
+		public void setSgleader(String sgleader) {
+			this.sgleader = sgleader;
 		}
-		public String getWdate() {
-			return wdate;
+		public String getSgintro() {
+			return sgintro;
 		}
-		public void setWdate(String wdate) {
-			this.wdate = wdate;
+		public void setSgintro(String sgintro) {
+			this.sgintro = sgintro;
 		}
-		public String getWcontent() {
-			return wcontent;
+		public int getSgmaxuserno() {
+			return sgmaxuserno;
 		}
-		public void setWcontent(String wcontent) {
-			this.wcontent = wcontent;
+		public void setSgmaxuserno(int sgmaxuserno) {
+			this.sgmaxuserno = sgmaxuserno;
 		}
-		public int getWviewcount() {
-			return wviewcount;
+		public String getSgselectlang() {
+			return sgselectlang;
 		}
-		public void setWviewcount(int wviewcount) {
-			this.wviewcount = wviewcount;
+		public void setSgselectlang(String sgselectlang) {
+			this.sgselectlang = sgselectlang;
 		}
+		public String getSgdate() {
+			return sgdate;
+		}
+		public void setSgdate(String sgdate) {
+			this.sgdate = sgdate;
+		}
+		
+		
+		
+		
+		
+		
 		
 		
 }

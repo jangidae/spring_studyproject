@@ -5,7 +5,7 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-<div class="title">게시물 수정</div>
+<h4>게시물 수정</h4>
 <form name="frm" method="post" action="update.do" enctype="multipart/form-data">
 		<input type="hidden" name="wno"      value="${update.wno}">    
 		<table class='table'>

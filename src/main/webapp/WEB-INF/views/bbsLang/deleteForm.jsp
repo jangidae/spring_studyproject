@@ -3,7 +3,7 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-<div class="title">게시물 삭제</div>
+<h4>게시물 삭제</h4>
     <form name="frm" method="post" action="delete.do">
     	<input type="hidden" name="wno" value="${param.wno}">
 		<div class="content">

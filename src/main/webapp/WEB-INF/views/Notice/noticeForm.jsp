@@ -11,8 +11,8 @@
 			<th> 카테고리 </th>
 			<td> 
 				<select name="ncode" class="form-select" aria-label="Default select example" style='width:710px;'>
-  					<option value="1">공지</option>
-  					<option value="2">뉴스</option>
+  					<option value="공지">공지</option>
+  					<option value="뉴스">뉴스</option>
 				</select>
 			</td>
 		</tr>
@@ -27,7 +27,7 @@
 	    
 	    
 	    <tr>
-	      <th>사진</th>
+	      <td>사진</td>
 	      <td><input class='form-control' id='posterMF' type='file' name='posterMF' size='50'></td>    
 	    </tr>
 	    
@@ -48,7 +48,7 @@
 	    </table>
 
 	    <div class="btn-group" role="group" aria-label="Basic example">
-	      <input type='submit' value='작성완료' class="btn btn-primary">
+	      <input type="submit" value="작성완료" class="btn btn-primary" onclick="location.href='/Notice/noticeList.do'">
 		  <input  class="btn btn-primary" type="button" value="목록" onclick="location.href='/Notice/noticeList.do'">
 		  <input  class="btn btn-primary" type="button" value="HOME"   onclick="location.href='/home.do'">	
 	    </div>  

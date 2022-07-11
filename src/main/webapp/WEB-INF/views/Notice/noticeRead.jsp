@@ -5,7 +5,7 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-<div class="title">게시물</div>
+<div class="title"><h4>게시물<h4></div>
 
 		<table class='table'>
 		<tr>
@@ -23,17 +23,20 @@
 	      <td><textarea class="form-control" id="floatingTextarea" cols='30' rows='15' style='background:white; border:0;' readonly>
 	      ${read.wcontent}</textarea></td>
 	    </tr>
-	    <c:if test="${read.filename !=null}">
-	    <tr>
-	      <th>사진</th>
-	      <td>
-	      <img src="../storage/${read.filename}" width="900"><br>
-	      
-	    </tr>
+	    <!-- ${read.filename !=null} 아래와 같이 수정했습니다-->
+	    <c:if test="${read.poster !=null}">
+		    <tr>
+		      <th><strong>사진</strong></th>
+		      <td><!-- dto.poster가 아니라 read변수에 담았기 때문에 read.poster로 수정했습니다 
+		               <img src="../storage/${dto.poster}" width="400">      -->
+		      <img src="../storage/${read.poster}" width="400"><br>
+		      </td>
+		    </tr>
 	    </c:if>
 	   	<tr>
 	      <th>작성일</th>
-	      <td>${fn:substring(read.wdate,0,19)}</td>
+	      <!--  <td>${fn:substring(read.wdate,0,19)}</td>-->
+	      <td>${read.wdate}</td> <!-- dto로도 불러봤는데 안떠요..  -->
 	     </tr>
 	   
 	     <tr>
@@ -43,7 +46,7 @@
 	    </table>
 
 	    <div class="btn-group" role="group" aria-label="Basic example">
-	       <input type='button' value='수정' onclick="location.href='/Notice/noticeUpdate.do';">
+	       <input type='button' value='수정' onclick="location.href='/Notice/noticeUpdate.do?wno=${read.wno}';">
 	       <!-- 몇번글을 삭제할 것인지 글번호를 전달하지 않았습니다 -->
 	       <input type='button' value='삭제' onclick="location.href='/Notice/noticeDel.do?wno=${read.wno}';">
 		  <input type="button" value="목록" onclick="location.href='/Notice/noticeList.do';">

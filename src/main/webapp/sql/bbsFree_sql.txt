@@ -1,4 +1,4 @@
-CREATE TABLE bbsFree (
+CREATE TABLE BBSFREE (
    wno      NUMBER(5)      NOT NULL PRIMARY KEY,   
    wtitle   VARCHAR2(50)   ,         
    wcontent VARCHAR2(2000) ,               
@@ -9,7 +9,7 @@ CREATE TABLE bbsFree (
    wdate    DATE           DEFAULT SYSDATE NULL,   
    mdate    DATE           DEFAULT SYSDATE NULL ,   
    wview    NUMBER(10)     DEFAULT 0 NOT NULL , 
-   ccode    VARCHAR2(10)   ,              
+   ccode    VARCHAR2(50)   ,              
    windent  NUMBER(5)      DEFAULT 0 NULL ,         
    wnum     NUMBER(5)      DEFAULT 0 NULL,         
    ip       VARCHAR2(15)                   

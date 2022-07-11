@@ -3,12 +3,15 @@ package kr.co.studyproject.group;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import kr.co.studyproject.group.*;
 
 
 
@@ -24,129 +27,131 @@ public class groupCont {
 	
 	// 결과확인 http://localhost:9100/studygroup/create.do
 	
-	@RequestMapping(value = "studygroup/create.do", method = RequestMethod.GET)
-	public String createForm() {
-		return "studygroup/createForm";	// /WEB-INF/views/studygroup/createForm.jsp
-	}//createForm() end
-	
-	@RequestMapping(value = "studygroup/create.do", method = RequestMethod.POST)
-		public ModelAndView createProc(@ModelAttribute groupDTO dto) {
-									//String title 사용해도 괜찮다
-			ModelAndView mav=new ModelAndView();
-			mav.setViewName("studygroup/msgView");
-			
-			int cnt=dao.create(dto);
-			if(cnt==0) {
-				String msg="<p>스터디 그룹 등록 실패</P>";
-				String img="<img src='../images/fail.png'>";
-				String link1="<input type='button' value='다시시도' onclick='javascript:history.back()'>";
-	            String link2="<input type='button' value='그룹목록' onclick='location.href=\"list.do\"'>";
-	            
-	            mav.addObject("msg", msg);
-	            mav.addObject("img", img);
-	            mav.addObject("link1", link1);
-	            mav.addObject("link2", link2);
-			}else {
-				String msg="<p>스터디 그룹 등록 성공</P>";
-				String img="<img src='../images/sound.png'>";
-				String link1="<input type='button' value='다시시도' onclick='javascript:history.back()'>";
-	            String link2="<input type='button' value='그룹목록' onclick='location.href=\"list.do\"'>";
-	            
-	            mav.addObject("msg", msg);
-	            mav.addObject("img", img);
-	            mav.addObject("link1", link1);
-	            mav.addObject("link2", link2);
-			}//if end
-				return mav;
-	}//createProc() end
 	
 	
-	@RequestMapping(value = "studygroup/delete.do", method = RequestMethod.GET)
-	public ModelAndView deleteForm(int wno) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("studygroup/deleteForm");
-		mav.addObject("studygroup",wno);
-		return mav;
-	}//deleteForm() end
 	
-	@RequestMapping(value = "studygroup/delete.do", method = RequestMethod.POST)
-	public ModelAndView deleteProc(int wno) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("studygroup/msgView");
+	@RequestMapping(value = "studygroup/SGinsert.do")
+	public String SGinsert(){
+		return "/studygroup/insert";
+	}//SGinsert() end
+	
+	
+	
+	
+	@RequestMapping(value = "studygroup/SGcreateProc.do", method = RequestMethod.POST)
+	public ModelAndView joinproc(@ModelAttribute groupDTO dto, HttpServletRequest request) {
 		
-		int cnt=dao.delete(wno);
-		if(cnt==0) {
-			String msg="<p>스터디 그룹 삭제 실패</p>";
-            String img="<img src='../images/angel.png'>";
-            String link1="<input type='button' value='다시시도' onclick='javascript:history.back()'>";
-            String link2="<input type='button' value='그룹목록' onclick='location.href=\"list.do\"'>";
-            mav.addObject("msg", msg);
-            mav.addObject("img", img);
-            mav.addObject("link1", link1);
-            mav.addObject("link2", link2);
-		}else {
-			String msg="<p>스터디 그룹 삭제 성공</p>";
-            String img="<img src='../images/yellowstar.png'>";
-            String link2="<input type='button' value='그룹목록' onclick='location.href=\"list.do\"'>";
-            mav.addObject("msg", msg);
-            mav.addObject("img", img);
-            mav.addObject("link2", link2);            
-		}//if end
-		return mav;
-	}//deleteProc() end
-	
-	@RequestMapping(value = "studygroup/update.do", method = RequestMethod.GET)
-	public ModelAndView updateForm(int wno) {
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("studygroup/updateForm");
-		mav.addObject("dto", dao.read(wno));
-	
+		//1) 사용자가 입력 요청한 값 가져오기
+		//int    sgno          =Integer.parseInt(request.getParameter("sgno"));
+		String sgname        =request.getParameter("sgname").trim();
+		String sgleader      =request.getParameter("sgleader").trim();
+		String sgintro       =request.getParameter("sgintro").trim();
+		int    sgmaxuserno   =Integer.parseInt(request.getParameter("sgmaxuserno"));
+		String sgselectlang  =request.getParameter("sgselectlang").trim();
+		//String sgdate        =request.getParameter("sgdate").trim(); sysdate 입력하면 됩니다
 
-		return mav;
-	}//updateForm() end
-	
-	@RequestMapping(value = "studygroup/update.do", method = RequestMethod.POST)
-	public ModelAndView updateProc(HttpServletRequest req) { 
+
+		//2) dto 객체 담기
+		dto.setSgname(sgname);
+		dto.setSgleader(sgleader);
+		dto.setSgintro(sgintro);
+		dto.setSgmaxuserno(sgmaxuserno);
+		dto.setSgselectlang(sgselectlang);
 		
-		int wno=Integer.parseInt(req.getParameter("wno"));
-        String title=req.getParameter("title").trim();
-        
-        groupDTO dto=new groupDTO();
-        dto.setWno(wno);
-        dto.setTitle(title);
-        
-        ModelAndView mav=new ModelAndView();
-        mav.setViewName("studygroup/msgView");
-        
-        int cnt=dao.update(dto);
+		
+		//3) studyg테이블에 추가
+		int cnt=dao.sgcreate(dto);
+		
+		ModelAndView mav=new ModelAndView();		
+		
 		if(cnt==0) {
-			String msg="<p>스터디 그룹 수정 실패</p>";
-            String img="<img src='../images/fail.png'>";
-            String link1="<input type='button' value='다시시도' onclick='javascript:history.back()'>";
-            String link2="<input type='button' value='그룹목록' onclick='location.href=\"list.do\"'>";
-            mav.addObject("msg", msg);
-            mav.addObject("img", img);
-            mav.addObject("link1", link1);
-            mav.addObject("link2", link2);
+			//그룹 생성 실패했을때
+			mav.setViewName("member/msgView");//msgView로 이동
+			mav.addObject("message", "<p>스터디그룹 생성에 실패하였습니다</p>");
+			mav.addObject("link", "<a href='javascript:history.back()'>[다시시도]</a>");			
+			
 		}else {
-			String msg="<p>스터디 그룹 수정 성공</p>";
-            String img="<img src='../images/sound.png'>";
-            String link2="<input type='button' value='그룹목록' onclick='location.href=\"list.do\"'>";
-            mav.addObject("msg", msg);
-            mav.addObject("img", img);
-            mav.addObject("link2", link2);            
+			//그룹 생성 성공했을때
+			mav.setViewName("member/msgView");//msgView로 이동
+			mav.addObject("message", "<p>스터디그룹 생성에 성공하였습니다</p>");
+			mav.addObject("link", "<a href='home.do'>[메인]</a>");
 		}//if end
-        
-        return mav;		
-	}//updateProc() end
-// 	리스트 
-	@RequestMapping("studygroup/list.do")
-		public ModelAndView list() {
-			ModelAndView mav= new ModelAndView();
-			mav.setViewName("studygroup/list");
-			mav.addObject("list", dao.list());
 		
-			return mav;
-	}// list() end
+		return mav;
+		
+	}//end
+	
+	/*
+	 public ArrayList<groupDTO> list(){ //구인 테이블 리스트 
+	      ArrayList<groupDTO> list=null;
+	        try {
+	            con=dbOpen.getConnection();
+	            sql=new StringBuilder();
+	            sql.append(" SELECT sgno, sgselectlang, sgname, sgintro, sgdate");
+	            sql.append(" FROM studyg ");
+	            sql.append(" ORDER BY wno DESC ");
+	            pstmt=con.prepareStatement(sql.toString());
+	            
+	            rs=pstmt.executeQuery();
+	            if(rs.next()) {
+	                list=new ArrayList<groupDTO>();
+	                do {
+	                    groupDTO dto=new groupDTO();
+	                    dto.setSgno(rs.getInt("sgno"));
+	                    dto.setSgleader(rs.getString("sgselectlang"));
+	                    dto.setSgname(rs.getString("sgname"));
+	                    dto.setSgintro(rs.getString("sgintro")); 
+	                    dto.setSgdate(rs.getString("sgdate"));
+	                    list.add(dto); //list 저장
+	                }while(rs.next());
+	            }//if end
+	        }catch(Exception e){
+	            System.out.println("studygroup 목록 실패:" +e);
+	         }finally{
+	            DBClose.close(con, pstmt, rs);
+	         }//리스트 end
+	         return list;
+	   }
+	   
+	   
+	   public groupDTO read(int sgno) {
+	        groupDTO dto=null;
+	        try {
+	            con=dbOpen.getConnection();
+	            sql=new StringBuilder();
+	            sql.append(" SELECT sgno, sgname, sgintro, sgmaxuserno, sgselectlang, sgdate ");
+	            sql.append(" FROM studyg ");
+	            sql.append(" WHERE sgno = ? ");
+	            pstmt = con.prepareStatement(sql.toString());
+	            pstmt.setInt(1, sgno);
+	            
+	            rs = pstmt.executeQuery();
+	            if(rs.next()){
+	                dto=new groupDTO();
+	                dto.setSgno(rs.getInt("sgno"));
+	                dto.setSgname(rs.getString("sgname"));
+	                dto.setSgintro(rs.getString("sgintro"));
+	                dto.setSgmaxuserno(rs.getInt("sgmaxuserno"));
+	                dto.setSgselectlang(rs.getString("sgselectlang"));
+	                dto.setSgdate(rs.getString("sgdate"));
+	                
+	            }//if end            
+	        }catch(Exception e) {
+	            System.out.println("스터디그룹 상세보기 실패: "+e);
+	        }finally{
+	            DBClose.close(con, pstmt, rs);
+	        }//end    
+	        return dto;
+	    }//read() end
+	   
+	   */
+	   
+	
+	
+	
+	
+	
+	
+	
 	
 }//class end

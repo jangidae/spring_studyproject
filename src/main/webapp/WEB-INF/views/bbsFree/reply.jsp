@@ -3,7 +3,9 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-    <div class="title">댓글 등록</div>
+    <div class="title">
+    	<h4>댓글 등록</h4>
+    </div>
 	<form name="frm" method="post" action="reply.do" enctype="multipart/form-data">
 	<input type='hidden' name='wnum' value='${read.wno}'>
 	<input type='hidden' name='windent' value='${read.windent + 1}'>

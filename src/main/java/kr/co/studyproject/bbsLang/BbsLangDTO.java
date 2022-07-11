@@ -6,10 +6,10 @@ public class BbsLangDTO {
 	private String wcontent;
 	private String wpasswd;
 	private String userid;
+	private String lcode;
 	private String wdate;
 	private String mdate;
 	private int wview;
-	private String lcode;
 	private int windent;
 	private int wnum;
 	private String ip;
@@ -50,13 +50,20 @@ public class BbsLangDTO {
 		this.wpasswd = wpasswd;
 	}
 
-
 	public String getUserid() {
 		return userid;
 	}
 
 	public void setUserid(String userid) {
 		this.userid = userid;
+	}
+
+	public String getLcode() {
+		return lcode;
+	}
+
+	public void setLcode(String lcode) {
+		this.lcode = lcode;
 	}
 
 	public String getWdate() {
@@ -83,14 +90,6 @@ public class BbsLangDTO {
 		this.wview = wview;
 	}
 
-	public String getLcode() {
-		return lcode;
-	}
-
-	public void setLcode(String lcode) {
-		this.lcode = lcode;
-	}
-
 	public int getWindent() {
 		return windent;
 	}
@@ -114,5 +113,7 @@ public class BbsLangDTO {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
+
+	
 	
 }

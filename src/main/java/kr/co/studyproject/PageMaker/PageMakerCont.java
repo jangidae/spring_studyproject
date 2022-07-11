@@ -23,7 +23,7 @@ public ModelAndView openBoardList(Criteria cri) throws Exception{
 	
 	List<Map<String,Object>> list = boardServcie.selectBoardList(cri);
 	mav.addObject("list", list);
-	mav.addObject("pageMaker", pageMaker);
+	mav.addObject("pageMaker", pageMaker);
 	
 	return mav;
 }  

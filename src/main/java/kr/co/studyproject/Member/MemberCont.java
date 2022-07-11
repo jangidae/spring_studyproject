@@ -74,6 +74,8 @@ public class MemberCont {
 	
 	
 	
+	
+	
 	@RequestMapping("/member/logout.do")
 	public String logout(HttpSession session) {
 		
@@ -90,7 +92,8 @@ public class MemberCont {
 	
 	
 	
-	@RequestMapping(value = "/findIDform.do")
+	
+	@RequestMapping(value = "findIDform.do")
 	public String findIDform() throws Exception{
 		return "/member/findIDform";
 	}//findIDform() end

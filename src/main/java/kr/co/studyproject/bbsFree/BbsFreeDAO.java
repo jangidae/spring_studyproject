@@ -3,7 +3,6 @@ package kr.co.studyproject.bbsFree;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -89,7 +88,7 @@ public class BbsFreeDAO {
     	return list;
     }//search() end
     
-    public LinkedList<BbsFreeDTO> list() {
+    public LinkedList<BbsFreeDTO> list(int start, int end) {
     	LinkedList<BbsFreeDTO> list=null;
         try {
             con=dbopen.getConnection();
@@ -100,7 +99,7 @@ public class BbsFreeDAO {
             pstmt=con.prepareStatement(sql.toString());
             rs=pstmt.executeQuery();
             if(rs.next()) {
-            	list=make_list(rs);
+            	list=make_list(rs, start, end);
                 
             }//if end
         }catch(Exception e){
@@ -111,7 +110,7 @@ public class BbsFreeDAO {
          return list;
     }//list() end
     
-    private LinkedList<BbsFreeDTO> make_list(ResultSet rs){
+    private LinkedList<BbsFreeDTO> make_list(ResultSet rs, int start, int end){
     	try {
     	ArrayList<BbsFreeDTO> temp=new ArrayList<>();
         do {
@@ -127,16 +126,16 @@ public class BbsFreeDAO {
             dto.setWindent(rs.getInt("windent"));
             temp.add(dto);
         }while(rs.next());
-        LinkedList<BbsFreeDTO> list=new LinkedList<>();
+        LinkedList<BbsFreeDTO> temp2=new LinkedList<>();
         int wind=0;
         do {
         	for(int i=0; i<temp.size(); i++) {
         		if(temp.get(i).getWindent()== wind) {
-        			if(wind==0)list.add(temp.get(i));
+        			if(wind==0)temp2.add(temp.get(i));
         			else {
-            			for(int k=0; k<list.size(); k++) {
-            				if(temp.get(i).getWnum() == list.get(k).getWno()) {
-            					list.add(k+1,temp.get(i));
+            			for(int k=0; k<temp2.size(); k++) {
+            				if(temp.get(i).getWnum() == temp2.get(k).getWno()) {
+            					temp2.add(k+1,temp.get(i));
             					break;
 	            				}//if end
 	            			}//for end
@@ -144,15 +143,19 @@ public class BbsFreeDAO {
 	        		}//if end
 	        	}//for end
 	        	wind++;
-	        }while(temp.size() != list.size());
+        }while(temp.size() != temp2.size());
+        LinkedList<BbsFreeDTO> list=new LinkedList<>();// 본글과 댓글을 순선대로 저장했으므로  페이지에 보여지는 만큼 추출하여 저장하기 공간
+        for(int i=start-1; i<end && i < temp.size(); i++) {// 페이지에 보여지는 글 번호 순서위치의 인덱스 부터 5개또는 마지막 글 까지 반복
+        	list.add(temp2.get(i));
+        }
         return list;
         
-    	}catch(Exception e) {
-    		System.out.println("목록생성실패"+e);
-    	}finally{
-    		DBClose.close(con);
-    	}//end
-    	return null;  //반환타입이 객체인 경우 반환문에 null값을 반환함
+    	}catch (Exception e) {
+            System.out.println("목록생성실패"+e);
+        } finally {
+            DBClose.close(con);
+        }//end
+    	return null;
     }//make_list() end
     
     public BbsFreeDTO read(int wno) {
@@ -183,10 +186,6 @@ public class BbsFreeDAO {
 
         } catch (Exception e) {
             System.out.println("상세보기실패"+e);
-<<<<<<< HEAD
-=======
-            e.printStackTrace();
->>>>>>> 80ee1f5f581ba8e568486324a66d1e1d8827fc8f
         } finally {
             DBClose.close(con, pstmt, rs);
         }//end
@@ -280,28 +279,78 @@ public class BbsFreeDAO {
    		 pstmt.executeUpdate();
    		 return true;
    	 }catch (Exception e) {
-<<<<<<< HEAD
          System.out.println("조회수 증가 실패"+e);
-=======
-         System.out.println("조회수 출력 실패"+e);
->>>>>>> 80ee1f5f581ba8e568486324a66d1e1d8827fc8f
       } finally {
           DBClose.close(con, pstmt);
       }//end
    	 	return false;
     }//increment_view_count() end
     
-    private String setCode(String lcode) {
+    private String setCode(String ccode) {
     	String code_val="영어";
-    	switch(lcode) {
+    	switch(ccode) {
     	case "HU001" : code_val="유머";break;
     	case "ST001" : code_val="공부";break;
     	case "RE001" : code_val="후기";break;
     	case "LI001" : code_val="자격증";break;
     	case "SH001" : code_val="자료공유";break;
     	}//switch() end
-    	return code_val+"-"+lcode;
+    	return code_val+"-"+ccode;
     }// setCode() end
-  
+    
+    public LinkedList<BbsFreeDTO> list2(int start, int end){
+        LinkedList<BbsFreeDTO> pageList=null;
+        try {
+            con=dbopen.getConnection();
+            sql=new StringBuilder();
+           
+            sql.append(" SELECT AA.* ");
+            sql.append(" FROM ( ");
+            sql.append("        SELECT ROWNUM as RNUM, BB.* ");
+            sql.append("        FROM ( ");
+            //sql.append("               SELECT wno, wtitle "); 이 코드를 아래 같이 수정
+            sql.append("               SELECT wno, wtitle, userid, ccode, wview, wdate, mdate, wnum, windent ");
+            sql.append("               FROM BBSFREE ");
+            sql.append("               ORDER BY wno DESC ");
+            sql.append("             )BB ");
+            sql.append("      ) AA ");
+            sql.append(" WHERE AA.RNUM >=? AND AA.RNUM<=? ");           
+            
+            pstmt=con.prepareStatement(sql.toString());
+            pstmt.setInt(1, start);
+            pstmt.setInt(2, end);
+           
+            rs=pstmt.executeQuery();
+            if(rs.next()) {
+            	
+            }//if end
+           
+        }catch(Exception e) {
+            System.out.println("페이징목록실패: "+e);
+        }finally{
+            DBClose.close(con, pstmt, rs);
+        }//end   
+        return pageList;
+    }//list2() end
 
+ 
+    public int totalRowCount() {
+        int cnt=0;
+        try {
+            con=dbopen.getConnection();
+            sql=new StringBuilder();
+            sql.append(" SELECT COUNT(*) FROM BBSFREE ");
+            pstmt=con.prepareStatement(sql.toString());
+            rs=pstmt.executeQuery();
+            if(rs.next()){
+                cnt=rs.getInt(1);            
+            }//if end          
+        }catch(Exception e){
+            System.out.println("전체 행 갯수:" + e);
+        }finally{
+            DBClose.close(con, pstmt);
+        }
+        return cnt;
+    }//totalRowCount() end
+  
 }//class end

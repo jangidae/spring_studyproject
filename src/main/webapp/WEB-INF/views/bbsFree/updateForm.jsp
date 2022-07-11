@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-<div class="title">게시물 수정</div>
+<h4>게시물 수정</h4>
 <form name="frm" method="post" action="update.do" enctype="multipart/form-data">
 		<input type="hidden" name="wno"      value="${update.wno}">    
 		<input type="hidden" name="tmpfile"      value="${update.filename}"> 
@@ -49,11 +49,17 @@
 	    </table>
 
 	    <div class="btn-group" role="group" aria-label="Basic example">
-	       <input type='submit' value='수정'>
+	       <input type='button' value='수정 완료' onclick="chk()">
 		  <input type="button" value="목록" onclick="location.href='list.do'">
 		  <input type="button" value="HOME"   onclick="location.href='/home.do'">	
 	    </div>  
 	</form>
+<script>
+	function chk(){
+		let flag = confirm("수정 하시겠습니까? ");
+		if(flag) document.frm.submit();
+	}
+</script>
 
 <!-- 본문 끝 -->
 <%@ include file="../footer.jsp" %>

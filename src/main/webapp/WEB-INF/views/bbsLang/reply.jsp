@@ -3,11 +3,13 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-    <div class="title">댓글 등록</div>
+    <div class="title">
+    	<h4>댓글 등록</h4>
+    </div>
 	<form name="frm" method="post" action="reply.do" >
 	<input type='hidden' name='wnum' value='${read.wno}'>
 	<input type='hidden' name='windent' value='${read.windent + 1}'>
-	<input type='hidden' name='lcode' value="${read.lcode.split("-")[1] }">
+	<input type='hidden' name='lcode' value="${read.lcode.split('-')[1] }">
 		<table class='table'>
 		<tr>
 			<th> 카테고리 </th>

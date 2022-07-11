@@ -3,7 +3,7 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-    <div class="title">게시글 등록</div>
+    <div class="title"><h4>게시글 등록</h4></div>
 	<form name="frm" method="post" action="create.do" enctype="multipart/form-data">
 		<%-- <input type="hidden" name="wgrpno" value="${requestScope.wgrpno}"> --%>
 		<table class='table'>

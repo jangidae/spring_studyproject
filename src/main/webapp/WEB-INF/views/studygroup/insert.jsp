@@ -11,17 +11,16 @@
 	}else{		
 %>
 		<form name="SGcreatefrm" id="SGcreatefrm" action="SGcreateProc.do" method="post" onsubmit="return SGcreateCheck()"> <!-- myscript.js -->
-		<span style="color:red; font-weight: bold; font-size : 13pt;">* 필수입력</span>
 		<br>
 		<table class="table">
 		<tr>
-		    <th> *그룹명 </th>
+		    <th> 그룹명 </th>
 		    <td style="text-align: left">
-		      <input type="text" name="sgname" id="sgname" maxlength="30" size="30" readonly>
+		      <input type="text" name="sgname" id="sgname" maxlength="30" size="30">
 		    </td>
 		</tr>
 		<tr>
-			<th> *그룹장 </th>
+			<th> 그룹장 </th>
 			    <td style="text-align: left">
 				<input type="text" name="sgleader" id="sgleader" size="15" value="<%=(String)session.getAttribute("s_userid") %>" readonly>
 			 </td>
@@ -31,11 +30,11 @@
 		    <td style="text-align: left"><input type="text" name="sgintro" id="sgintro" size="30"></td>
 		</tr>
 		<tr>
-		    <th> *최대 인원 </th>
-		    <td style="text-align: left"><input type="text" name="sgmaxno" id="sgmaxno" maxlength="2" size="15"></td>
+		    <th> 최대 인원 </th>
+		    <td style="text-align: left"><input type="text" name="sgmaxuserno" id="sgmaxuserno" maxlength="1" size="15"></td>
 		</tr>
 		<tr>  
-		  <th>카테고리</th>
+		  <th> 카테고리 </th>
 		  <td style="text-align: left">
 		        <select name="sgselectlang"  id="sgselectlang">
 		          <option value="0" selected>선택하세요.</option>
@@ -54,6 +53,7 @@
 		</tr>
 		</table>
 		</form>
-<%}//if end %>
+<%}//if end
+	 %>
 <!-- 본문 끝 -->
 <%@ include file="../footer.jsp" %>

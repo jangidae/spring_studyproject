@@ -6,14 +6,14 @@ COMMIT;
 
 --스터디그룹 테이블 생성
 create table studyg (
-				sgno         number(10)       primary key   --그룹번호
+				sgno         number                         --그룹번호
                 ,sgname       varchar2(20)					--그룹명
+                ,sgleader     varchar2(30)					--그룹장아이디
                 ,sgintro      varchar2(200)					--그룹소개(생략가능)
-                ,sgmaxuserno    varchar2(20)				--최대인원수
-                ,sgselectlang  number(11)					--그룹카테고리분류
+                ,sgmaxuserno    number(4)   				--최대인원수
+                ,sgselectlang  varchar2(10)                 --그룹카테고리분류
+                ,sgdate        date				            --그룹생성일
 	   );
-	  
-	   ,sgleader     varchar2(20)					--그룹장아이디
 
 --시퀀스생성
 create sequence studyg_seq;
@@ -28,11 +28,14 @@ COMMIT;
 
 --스터디그룹원 테이블 생성
 create table studyp (
-				sgno         number(10)       Fk   --그룹번호
-                ,userid       varchar2(20)		   --그룹원아이디
-                ,sgjoind     sysdate(20)			--그룹가입일
+				sgno         number(10) 			 --그룹번호
+                ,userid       varchar2(20)		    --그룹원아이디
+                ,sgjoind     date					--그룹가입일
                 ,sglevel     varchar2(20)		    --그룹원등급
+                ,constraint sgno foreign key(sgno) references studyg(sgno) --외래키설정
 	   );
+	   
+-- 외래키 관련 참조 https://bamdule.tistory.com/45
 
 --시퀀스생성
 create sequence studyp_seq;

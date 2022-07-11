@@ -5,7 +5,7 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-<div class="title">게시물</div>
+	<h4>게시물</h4>
 
 		<table class='table'>
 		<tr>

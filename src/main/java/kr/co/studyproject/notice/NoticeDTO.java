@@ -11,7 +11,7 @@ public class NoticeDTO {
 	private String userid;    //작성자
 	private String poster;    //이미지
 	private String filename;  //파일명
-	private int filesize;     //파일사이즈
+	private long filesize;     //파일사이즈
 	private String wdate;     //최초 작성 날짜
 	private int wview;        //조회수
 	private int indent;       //들여쓰기
@@ -81,10 +81,10 @@ public class NoticeDTO {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	public int getFilesize() {
+	public long getFilesize() {
 		return filesize;
 	}
-	public void setFilesize(int filesize) {
+	public void setFilesize(long filesize) {
 		this.filesize = filesize;
 	}
 	public String getWdate() {
@@ -114,7 +114,7 @@ public class NoticeDTO {
 				+ ", wdate=" + wdate + ", wview=" + wview + ", indent=" + indent + "]";
 	}
 
-	
+	/////////////////////////////////////////////////////////////////////
 	
 	
 
