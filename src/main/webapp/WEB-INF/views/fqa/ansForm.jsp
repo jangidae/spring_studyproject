@@ -22,7 +22,7 @@
 <h4>F A Q</h4>
 
 	<div class="box">
-		<button class="qBtn" type="button">스터디 멤버들과 불화나 분쟁이 발생하였나요??</button>
+		<button class="qBtn" type="button">스터디 멤버들과 불화나 분쟁이 발생하였을 경우</button>
 		<div class="answer">
 			<div class="title">현재 스터디하시2조 운영방침 상 유저 간 발생하는 분쟁에 관련하여 적극적으로 개입하거나
 	 조치할 의무는 없기에 따로 조치를 취해 드리지 못하는 점 양해 부탁드립니다.</div>

@@ -17,6 +17,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="./css/project.css">
   <script src="./js/myscript_member.js"></script> <!-- 6/20 적용했습니다 -->
+  <script src="./js/myscript.js"></script> <!-- 7/11 적용했습니다 -->
   
   
 </head>
@@ -52,10 +53,9 @@
         <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" >스터디 그룹 게시판<span class="caret"></span></a>
         <ul class="dropdown-menu">
-        	<li><a href="/studygroup/SGinsert.do">그룹 만들기</a></li>
-       		<li><a href="/studygroup/list.do">그룹 구해요</a></li>
-            <li><a href="#">멤버 구해요</a></li>
-            <li><a href="#">내 그룹 게시판</a></li> 
+        	<li><a href="/studygroup/insert.do">그룹 만들기</a></li>
+       		<li><a href="/studygroup/groupList.do">그룹 모집 </a></li>
+            <li><a href="/studygroup/myGroupList.do">내 그룹 상세보기</a></li>  
          </ul>
          </li>
          <li class="dropdown">
@@ -84,7 +84,6 @@
 %>
      	</li>
      	
-        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
       </ul>
     </div>
   </div>
@@ -148,37 +147,22 @@
   <br>
   <div class="row">
     <div class="col-sm-4">
-      <p class="text-center"><strong>오늘의 단어</strong></p><br>
-      <a href="#demo" data-toggle="collapse">
-        <img src="./images/Languages.png"  class="img-circle person" alt="Random Name" width="255" height="255">
-      </a>
-      <div id="demo" class="collapse">
-        <p><h1>[주간 일본어 어휘] 객관식 퀴즈</h1></p>
-        <p><h1>[주간 일본어 어휘] 객관식 퀴즈</h1></p>
-        <p><h1>[주간 일본어 어휘] 객관식 퀴즈</h1></p>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <p class="text-center"><strong>자료공유 게시판</strong></p><br>
-      <a href="#demo1" data-toggle="collapse">
-        <img src="./images/data.png"  class="img-circle person" alt="Random Name" width="255" height="255">
-      </a>
-      <div id="demo1" class="collapse">
-        <p><h1>[토익] 토익 30일컷 공부법</h1></p>
-        <p><h1>[일본어] 노베이스도 가능한 JLPT 3급</h1></p>
-        <p><h1>[토익] 토익 영단어 공유</h1></p>
-      </div>
-    </div>
-    <div class="col-sm-4">
       <p class="text-center"><strong>공지사항</strong></p><br>
-      <a href="#demo2" data-toggle="collapse">
+      <a href="Notice/noticeList.do">
         <img src="./images/languagestudy.png"  class="img-circle person" alt="Random Name" width="255" height="255">
       </a>
-      <div id="demo2" class="collapse">
-        <p><h1>[공지사항]새로운 기능 타이머 추가</h1></p>
-        <p><h1>[공지사항]jlpt 등록 시작</h1></p>
-        <p><h1>[공지사항]서버 불안으로 인한 문제 해결</h1></p>
-	  </div>
+    </div>
+    <div class="col-sm-4">
+      <p class="text-center"><strong>자유게시판</strong></p><br>
+      <a href="/bbsFree/list.do">
+        <img src="./images/Languages.png"  class="img-circle person" alt="Random Name" width="255" height="255">
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <p class="text-center"><strong>마이페이지</strong></p><br>
+      <a href='./member/memberModifyForm.do'>
+        <img src="./images/data.png"  class="img-circle person" alt="Random Name" width="255" height="255">
+      </a>
     </div>
   </div><!-- row 끝 -->
 

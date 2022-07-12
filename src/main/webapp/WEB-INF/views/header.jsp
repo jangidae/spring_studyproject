@@ -16,6 +16,7 @@
    <!-- Bootstrap -->
    <link href="bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet"> <!-- 0708 적용-->
    <script src="../js/myscript_member.js"></script> <!-- 6/20 적용했습니다 -->
+   <script src="../js/myscript.js"></script> <!-- 7/11 적용했습니다 -->
    <script src="../js/jquery-3.6.0.min.js"></script> <!-- 6/20 적용했습니다 -->
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -50,10 +51,9 @@
           <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" >스터디 그룹 게시판<span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a href="/studygroup/SGinsert.do">그룹 만들기</a></li>
-       		<li><a href="/studygroup/list.do">그룹 구해요</a></li>
-            <li><a href="#">멤버 구해요</a></li>
-            <li><a href="#">내 그룹 게시판</a></li> 
+            <li><a href="/studygroup/insert.do">그룹 만들기</a></li>
+       		<li><a href="/studygroup/groupList.do">그룹 모집 </a></li>
+            <li><a href="/studygroup/myGroupList.do">내 그룹 상세보기</a></li>  
          </ul>
          </li>
          <li class="dropdown">
@@ -81,7 +81,7 @@
         }//if end
 %>
      	</li>
-        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+        
       </ul>
     </div>
   </div>

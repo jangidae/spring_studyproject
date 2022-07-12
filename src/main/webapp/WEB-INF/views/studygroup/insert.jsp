@@ -10,7 +10,7 @@
 		out.print("그룹은 로그인 후 생성해주세요");
 	}else{		
 %>
-		<form name="SGcreatefrm" id="SGcreatefrm" action="SGcreateProc.do" method="post" onsubmit="return SGcreateCheck()"> <!-- myscript.js -->
+		<form name="SGcreatefrm" id="SGcreatefrm" action="SGcreateProc.do" method="post" onsubmit=""> <!-- myscript.js -->
 		<br>
 		<table class="table">
 		<tr>
@@ -38,10 +38,10 @@
 		  <td style="text-align: left">
 		        <select name="sgselectlang"  id="sgselectlang">
 		          <option value="0" selected>선택하세요.</option>
-		          <option value="A01">영어</option>
-		          <option value="A02">일본어</option>
-		          <option value="A03">중국어</option>
-		          <option value="A05">기타</option>
+		          <option value="영어">영어</option>
+		          <option value="일본어">일본어</option>
+		          <option value="중국어">중국어</option>
+		          <option value="기타">기타</option>
 		        </select>
 		  </td>
 		</tr>

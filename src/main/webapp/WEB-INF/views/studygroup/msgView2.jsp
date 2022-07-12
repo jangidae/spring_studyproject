@@ -3,13 +3,12 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-<div class="title"><h4>알림</h4></div>
+<div class="title">알림</div>
 	<div class="content">
 		<dl>
 			<dd>${msg != null ? img : ""} ${msg}</dd>
 		</dl>
 		<p>
-			${link1}
 			${link2}			
 		</p>	
 	</div>

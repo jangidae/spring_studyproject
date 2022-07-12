@@ -8,6 +8,9 @@ public class groupDTO {
 		private int sgmaxuserno;
 		private String sgselectlang;
 		private String sgdate;
+		private String userid;
+		private String sgjoind;
+		private String sglevel;
 		
 		
 		public int getSgno() {
@@ -31,8 +34,8 @@ public class groupDTO {
 		public String getSgintro() {
 			return sgintro;
 		}
-		public void setSgintro(String sgintro) {
-			this.sgintro = sgintro;
+		public void setSgintro(String gsintro) {
+			this.sgintro = gsintro;
 		}
 		public int getSgmaxuserno() {
 			return sgmaxuserno;
@@ -52,6 +55,26 @@ public class groupDTO {
 		public void setSgdate(String sgdate) {
 			this.sgdate = sgdate;
 		}
+		public String getUserid() {
+			return userid;
+		}
+		public void setUserid(String userid) {
+			this.userid = userid;
+		}
+		public String getSgjoind() {
+			return sgjoind;
+		}
+		public void setSgjoind(String sgjoind) {
+			this.sgjoind = sgjoind;
+		}
+		public String getSglevel() {
+			return sglevel;
+		}
+		public void setSglevel(String sglevel) {
+			this.sglevel = sglevel;
+		}
+		
+		
 		
 		
 		

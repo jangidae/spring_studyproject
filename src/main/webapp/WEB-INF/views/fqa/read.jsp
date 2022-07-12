@@ -3,7 +3,7 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-<div class="title">게시물</div>
+<div class="title"><h4>게시물</h4></div>
 
 		<input type="hidden" name="wgrpno" value="${dto.wgrpno}">
 		<input type="hidden" name="wno"      value="${dto.wno}">    

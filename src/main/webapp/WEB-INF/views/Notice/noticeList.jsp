@@ -15,9 +15,36 @@
 	padding-left: 600px;
 	position: reative;
 }
+
+.pagination {
+	display: inline-block;
+}
+
+.center {
+	text-align: center;
+}
+
+.pagination a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+
+.pagination a:active {
+	background-color: black;
+	color: white;
+	border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+	background-color: orange;
+	border-radius: 5px;
+}
+
 </style>
 <div class="title">
-	<h4>게시판 목록</h4>
+	<h4>공지사항</h4>
 </div>
 <div class="content" style='margin-bottom: 10px;'>
 	<div class='bbsfree-bt'>
@@ -58,10 +85,10 @@
 
 </table>
 <div class='search'>
-	<form method='get' action='search.do'>
-		<input type='text' style='' name='search' size=25 maxlength=25>
-		<button class='btn btn-secondary'>검색</button>
-	</form>
+   <form method='get' action='/Notice/search.do'>
+      <input type='text' style='' name='search' size=25 maxlength=25>
+      <button class='btn btn-secondary'>검색</button>
+   </form>
 </div>
 
 <!-- 페이지 리스트 -->
@@ -70,7 +97,7 @@
 	<c:set var="startPage" value="${requestScope.startPage}" />
 	<c:set var="endPage" value="${requestScope.endPage}" />
 
-	<div class="content">
+	<div class="pagination">
 		<c:if test="${endPage>pageCount}">
 			<c:set var="endPage" value="${pageCount+1}" />
 		</c:if>
@@ -81,7 +108,7 @@
 		</c:if>
 
 		<c:forEach var="i" begin="${startPage+1}" end="${endPage-1}">
-			<a href="./noticeList.do?pageNum=${i}">[${i}]</a>
+			<a href="./noticeList.do?pageNum=${i}">${i}</a>
 		</c:forEach>
 
 		<c:if test="${endPage<pageCount}">

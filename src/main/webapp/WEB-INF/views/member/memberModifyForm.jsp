@@ -8,7 +8,7 @@
 <!-- 본문 시작 template.jsp -->
 
 <div class="container">
-	<h3> 회원정보 수정 </h3>
+	<h4> 회원정보 수정 </h4>
 <%
 	dto=dao.read((String)session.getAttribute("s_userid"));//로그인한 세션변수(전역변수/아이디)를 형변환(String)해서 넘김
 													   //auth.jsp 에서 s_userid 끌어와 쓰는 것도 가능

@@ -1,26 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-<h4>게시물 수정</h4>
-<form name="frm" method="post" action="update.do" enctype="multipart/form-data" onsubmit="return bbsCheck2()">
+<div class="title"><h4>게시물 수정</h4></div>
+<form name="frm" method="post" action="update.do" enctype="multipart/form-data" onsubmit="return centerCheck()">
 		<input type="hidden" name="wno"      value="${update.wno}">    
-		<input type="hidden" name="tmpfile"      value="${update.filename}"> 
-		<input type="hidden" name="tmpsize"      value="${update.filesize}"> 
 		<table class='table'>
 		<tr>
 			<th> 카테고리 </th>
 			<td> 
-				<select class="form-select" aria-label="Default select example" style='width:710px;' id='ccode' name='ccode'>
+				<select class="form-select" aria-label="Default select example" style='width:710px;' id='wcode' name='wcode'>
   					<option value="0">카테고리를 선택해주세요</option>
-  					<option value="HU001">유머</option>
-  					<option value="ST001">공부</option>
-  					<option value="RE001">후기</option>
-  					<option value="LI001">자격증</option>
-  					<option value="SH001">자료공유</option>
+  					<option value="AA">욕설 및 공격적 언행 신고</option>
+  					<option value="BB">비매너 신고</option>
+  					<option value="CC">성희롱 신고</option>
+  					<option value="DD">다른 문제가 있어요</option>
 				</select>
 			</td>
 		</tr>
@@ -30,23 +27,16 @@
 	    </tr>
 	    <tr>
 	      <th>내용</th>
-	      <td><textarea class="form-control" placeholder="Leave a comment here" id="wcontent" cols='30' rows='15' name='wcontent'>
+	      <td><textarea class="form-control" placeholder="내용을 입력해주세요" id="wcontent" cols='30' rows='15'name='wcontent'>
 	      ${update.wcontent}</textarea></td>
 	    </tr>
-	     <c:if test="${update.filename !=null }">
-	    <tr>
-	      <th>사진</th>
-	      <td>
-	      <img src="../storage/${update.filename}" width="100"><br>
-	      <input class='form-control' id='formpic' type='file' name='file' size='50'></td>    
-	    </tr>
-	    </c:if>
 	    <tr>
 	    	<th>비밀번호</th>
 	    	<td style='text-align:left;'>
 	    		<input type='password' id='wpasswd' name='wpasswd' size='10' style='font-size:15pt; height:30px;'>
 	    	</td>
 	    </tr>
+	   
 	    </table>
 
 	    <div class="btn-group" role="group" aria-label="Basic example">

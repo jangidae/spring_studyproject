@@ -14,7 +14,7 @@ public class CenterDTO {
 	private String	wcode;
 	
 	private int windent;
-	private int xnum;
+	private int wnum;
 	private String ip;
 	
 	public CenterDTO() {} //기본 생성자 함수
@@ -99,12 +99,12 @@ public class CenterDTO {
 		this.windent = windent;
 	}
 
-	public int getXnum() {
-		return xnum;
+	public int getWnum() {
+		return wnum;
 	}
 
-	public void setXnum(int xnum) {
-		this.xnum = xnum;
+	public void setWnum(int wnum) {
+		this.wnum = wnum;
 	}
 
 	public String getIp() {
@@ -114,7 +114,13 @@ public class CenterDTO {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "CenterDTO [wno=" + wno + ", wtitle=" + wtitle + ", wcontent=" + wcontent + ", wpasswd=" + wpasswd
+				+ ", userid=" + userid + ", wdate=" + wdate + ", mdate=" + mdate + ", wview=" + wview + ", wcode="
+				+ wcode + ", windent=" + windent + ", wnum=" + wnum + ", ip=" + ip + "]";
+	}
 	
 
 }//class end

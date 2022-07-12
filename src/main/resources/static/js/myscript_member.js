@@ -4,6 +4,7 @@
  * myscript.js
  */
 
+//자바스크립트를 테스트 할경우, 각 브라우저(크롬등)에서 쿠키를 삭제하고 테스트 합니다
 function loginCheck(){//로그인 유효성검사(아이디,비번)
     //1)아이디 5-10글자 이내인지 검사
     var userid=document.getElementById("userid").value;
@@ -14,11 +15,11 @@ function loginCheck(){//로그인 유효성검사(아이디,비번)
     	return false;                                 
 	}//if end
     
-    //2)비밀번호 5-10글자이내인지 검사
+    //2)비밀번호 4-10글자이내인지 검사
     var upw=document.getElementById("upw").value;
 	upw=upw.trim();                               
-	if(!(upw.length>=5 && upw.length<=10)){
-	    alert("비밀번호는 5~10글자 이내로 입력해주세요");
+	if(!(upw.length>=4 && upw.length<=10)){
+	    alert("비밀번호는 4~10글자 이내로 입력해주세요");
     	document.getElementById("upw").focus();     
     	return false;
     }//if end
@@ -79,11 +80,11 @@ function memberCheck(){//회원가입 유효성 검사
 	
 	
 	
-    //2)비밀번호 5~10글자 인지?
+    //2)비밀번호 4~10글자 인지?
     var upw=document.getElementById("upw").value; //아이디 가져오기
     upw=upw.trim(); //좌우 공백제거하기
-    if(!(upw.length>=5 && upw.length<=10)){
-	    alert("비밀번호는 5~10글자 이내로 입력해주세요");
+    if(!(upw.length>=4 && upw.length<=10)){
+	    alert("비밀번호는 4~10글자 이내로 입력해주세요");
     	document.getElementById("upw").focus();     
     	return false;
     }//if end

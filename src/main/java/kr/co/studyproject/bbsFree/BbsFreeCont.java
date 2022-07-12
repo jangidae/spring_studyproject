@@ -33,7 +33,7 @@ public class BbsFreeCont {
 	}// createForm() end
 
 	@RequestMapping(value = "bbsFree/create.do", method = RequestMethod.POST)
-	public ModelAndView createProc(@ModelAttribute BbsFreeDTO dto, HttpServletRequest request, MultipartFile file) {
+	public ModelAndView createProc(@ModelAttribute BbsFreeDTO dto, HttpServletRequest req, MultipartFile file) {
 		// String title 써도 됨
 		String filename = file.getOriginalFilename();
 		File target = new File("C://java202202//workspace_spring//spring_studyproject//src//main//webapp//storage",
@@ -42,14 +42,14 @@ public class BbsFreeCont {
 			FileCopyUtils.copy(file.getBytes(), target);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}//end
+		} // end
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("bbsFree/msgView");
 		dto.setFilename(filename);
 		dto.setFilesize(file.getSize());
-		dto.setIp(request.getRemoteAddr());
-		dto.setUserid("aa"); // (String)request.getSession().getAttribute("세션명")
+		dto.setIp(req.getRemoteAddr());
+		dto.setUserid((String) req.getSession().getAttribute("s_userid"));
 		int cnt = dao.create(dto);
 		if (cnt == 0) {
 			String msg = "<p>게시물 등록 실패</p>";
@@ -82,14 +82,14 @@ public class BbsFreeCont {
 		dao.increment_view_count(dto.getWno());
 		mav.addObject("read", dao.read(dto.getWno()));
 		return mav;
-	}//read() end
+	}// read() end
 
 	@RequestMapping(value = "bbsFree/delete.do", method = RequestMethod.GET)
 	public ModelAndView delete_get(@ModelAttribute BbsFreeDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("bbsFree/deleteForm");
 		return mav;
-	}//delete_get() end
+	}// delete_get() end
 
 	@RequestMapping(value = "bbsFree/delete.do", method = RequestMethod.POST)
 	public ModelAndView delete(@ModelAttribute BbsFreeDTO dto) {
@@ -97,7 +97,7 @@ public class BbsFreeCont {
 		dao.delete(dto);
 		mav.setViewName("redirect:/bbsFree/list.do");
 		return mav;
-	}//delete() end
+	}// delete() end
 
 	@RequestMapping(value = "bbsFree/update.do", method = RequestMethod.GET)
 	public ModelAndView update_get(@ModelAttribute BbsFreeDTO dto) {
@@ -105,10 +105,10 @@ public class BbsFreeCont {
 		mav.setViewName("bbsFree/updateForm");
 		mav.addObject("update", dao.read(dto.getWno()));
 		return mav;
-	}//update_get() end
+	}// update_get() end
 
 	@RequestMapping(value = "bbsFree/update.do", method = RequestMethod.POST)
-	public ModelAndView update(@ModelAttribute BbsFreeDTO dto, MultipartFile file, HttpServletRequest request) {
+	public ModelAndView update(@ModelAttribute BbsFreeDTO dto, MultipartFile file, HttpServletRequest req) {
 
 		String filename = null;
 		long filesize = 0;
@@ -121,10 +121,10 @@ public class BbsFreeCont {
 				FileCopyUtils.copy(file.getBytes(), target);
 			} catch (IOException e) {
 				e.printStackTrace();
-			}//end
-		}//if end
-		filename = request.getParameter("tmpfile");
-		filesize = Long.parseLong(request.getParameter("tmpsize"));
+			} // end
+		} // if end
+		filename = req.getParameter("tmpfile");
+		filesize = Long.parseLong(req.getParameter("tmpsize"));
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("bbsFree/read");
@@ -134,59 +134,58 @@ public class BbsFreeCont {
 		dao.update(dto);
 		mav.addObject("read", dao.read(dto.getWno()));
 		return mav;
-	}//update() end
+	}// update() end
 
 	@RequestMapping("bbsFree/list.do")
 	public ModelAndView list(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("bbsFree/list");
 
-		int totalRowCount=dao.totalRowCount(); //총 글갯수
-	       
-        //페이징
-        int numPerPage   = 5;    // 한 페이지당 레코드 갯수
-        int pagePerBlock = 5;   // 페이지 리스트
-       
-        String pageNum=req.getParameter("pageNum");
-        if(pageNum==null){
-              pageNum="1";
-        }
-       
-        int currentPage=Integer.parseInt(pageNum);
-        int startRow   =(currentPage-1)*numPerPage+1;
-        int endRow     =currentPage*numPerPage;
-       
-        //페이지 수
-        double totcnt = (double)totalRowCount/numPerPage;
-        int totalPage = (int)Math.ceil(totcnt);
-         
-        double d_page = (double)currentPage/pagePerBlock;
-        int Pages     = (int)Math.ceil(d_page)-1;
-        int startPage = Pages*pagePerBlock;
-        int endPage   = startPage+pagePerBlock+1;
-       
-       
-        List list=null;     
-        if(totalRowCount>0){           
-              list=dao.list(startRow, endRow);          
-        } else {           
-              list=Collections.EMPTY_LIST;           
-        }//if end
-         
-        int number=0;
-        number=totalRowCount-(currentPage-1)*numPerPage;
-         
-        mav.addObject("number",    number);
-        mav.addObject("pageNum",   currentPage);
-        mav.addObject("startRow",  startRow);
-        mav.addObject("endRow",    endRow);
-        mav.addObject("count",     totalRowCount);
-        mav.addObject("pageSize",  pagePerBlock);
-        mav.addObject("totalPage", totalPage);
-        mav.addObject("startPage", startPage);
-        mav.addObject("endPage",   endPage);
-        mav.addObject("list", list);
-        return mav;
+		int totalRowCount = dao.totalRowCount(); // 총 글갯수
+
+		// 페이징
+		int numPerPage = 5; // 한 페이지당 레코드 갯수
+		int pagePerBlock = 5; // 페이지 리스트
+
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null) {
+			pageNum = "1";
+		}
+
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage - 1) * numPerPage + 1;
+		int endRow = currentPage * numPerPage;
+
+		// 페이지 수
+		double totcnt = (double) totalRowCount / numPerPage;
+		int totalPage = (int) Math.ceil(totcnt);
+
+		double d_page = (double) currentPage / pagePerBlock;
+		int Pages = (int) Math.ceil(d_page) - 1;
+		int startPage = Pages * pagePerBlock;
+		int endPage = startPage + pagePerBlock + 1;
+
+		List list = null;
+		if (totalRowCount > 0) {
+			list = dao.list(startRow, endRow);
+		} else {
+			list = Collections.EMPTY_LIST;
+		} // if end
+
+		int number = 0;
+		number = totalRowCount - (currentPage - 1) * numPerPage;
+
+		mav.addObject("number", number);
+		mav.addObject("pageNum", currentPage);
+		mav.addObject("startRow", startRow);
+		mav.addObject("endRow", endRow);
+		mav.addObject("count", totalRowCount);
+		mav.addObject("pageSize", pagePerBlock);
+		mav.addObject("totalPage", totalPage);
+		mav.addObject("startPage", startPage);
+		mav.addObject("endPage", endPage);
+		mav.addObject("list", list);
+		return mav;
 	}// list() end
 
 	@RequestMapping(value = "bbsFree/reply.do", method = RequestMethod.GET)
@@ -195,10 +194,10 @@ public class BbsFreeCont {
 		mav.setViewName("bbsFree/reply");
 		mav.addObject("read", dao.read(dto.getWno()));
 		return mav;
-	}//reply_create() end
+	}// reply_create() end
 
 	@RequestMapping(value = "bbsFree/reply.do", method = RequestMethod.POST)
-	public ModelAndView reply(@ModelAttribute BbsFreeDTO dto, HttpServletRequest request, MultipartFile file) {
+	public ModelAndView reply(@ModelAttribute BbsFreeDTO dto, HttpServletRequest req, MultipartFile file) {
 		String filename = file.getOriginalFilename();
 		File target = new File("C://java202202//workspace_spring//spring_studyproject//src//main//webapp//storage",
 				filename);
@@ -206,24 +205,68 @@ public class BbsFreeCont {
 			FileCopyUtils.copy(file.getBytes(), target);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}//end
+		} // end
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("bbsFree/reply");
 		dto.setFilename(filename);
 		dto.setFilesize(file.getSize());
-		dto.setIp(request.getRemoteAddr());
-		dto.setUserid("bb"); // (String)request.getSession().getAttribute("세션명")
+		dto.setIp(req.getRemoteAddr());
+		dto.setUserid((String) req.getSession().getAttribute("s_userid"));
 		dao.create(dto);
 		mav.setViewName("redirect:/bbsFree/list.do");
 		return mav;
-	}//reply() end
+	}// reply() end
 
 	@RequestMapping("bbsFree/search.do")
-	public ModelAndView search(HttpServletRequest request) {
+	public ModelAndView search(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("bbsFree/list");
-		mav.addObject("list", dao.search(request.getParameter("search")));
-		return mav;
-	}//search() end
 
-}//class end
+		int totalRowCount = dao.totalRowCount(); // 총 글갯수
+
+		// 페이징
+		int numPerPage = 5; // 한 페이지당 레코드 갯수
+		int pagePerBlock = 5; // 페이지 리스트
+
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null) {
+			pageNum = "1";
+		}
+
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage - 1) * numPerPage + 1;
+		int endRow = currentPage * numPerPage;
+
+		// 페이지 수
+		double totcnt = (double) totalRowCount / numPerPage;
+		int totalPage = (int) Math.ceil(totcnt);
+
+		double d_page = (double) currentPage / pagePerBlock;
+		int Pages = (int) Math.ceil(d_page) - 1;
+		int startPage = Pages * pagePerBlock;
+		int endPage = startPage + pagePerBlock + 1;
+
+		List list = null;
+		if (totalRowCount > 0) {
+			list = dao.search(req.getParameter("search"), startRow, endRow);
+		} else {
+			list = Collections.EMPTY_LIST;
+		} // if end
+
+		int number = 0;
+		number = totalRowCount - (currentPage - 1) * numPerPage;
+
+		mav.addObject("number", number);
+		mav.addObject("pageNum", currentPage);
+		mav.addObject("startRow", startRow);
+		mav.addObject("endRow", endRow);
+		mav.addObject("count", totalRowCount);
+		mav.addObject("pageSize", pagePerBlock);
+		mav.addObject("totalPage", totalPage);
+		mav.addObject("startPage", startPage);
+		mav.addObject("endPage", endPage);
+		mav.addObject("list", list);
+		return mav;
+	}// search() end
+
+}// class end

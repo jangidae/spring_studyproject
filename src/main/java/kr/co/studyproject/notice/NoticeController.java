@@ -18,7 +18,7 @@ import net.utility.UploadSaveManager;
 
 @Controller
 public class NoticeController {
-	private static final int wno = 0;
+	
 	NoticeDAO dao=null;
 	
 	public NoticeController() {
@@ -256,5 +256,23 @@ public class NoticeController {
         mav.addObject("list", list);
         return mav;
     }//list() end
+    
+    
+    
+    @RequestMapping("Notice/search.do")
+    public ModelAndView search(HttpServletRequest request) {
+       ModelAndView mav = new ModelAndView();
+       //mav.setViewName("Notice/list"); 뷰페이지명 noticeList.jsp입니다
+       mav.setViewName("Notice/noticeList");
+       mav.addObject("list", dao.search(request.getParameter("search")));
+       return mav;
+    }//search() end
+    
+    
+    
+    
+    
+    
+    
 }
 

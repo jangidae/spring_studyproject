@@ -1,4 +1,4 @@
-CREATE TABLE cenTer (
+CREATE TABLE center (
    wno      NUMBER(5)      NOT NULL PRIMARY KEY,
    wtitle   VARCHAR2(50)   ,             
    wcontent VARCHAR2(2000) ,              

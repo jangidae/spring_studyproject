@@ -2,16 +2,17 @@ package kr.co.studyproject.group;
 
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import kr.co.studyproject.group.*;
 
 
 
@@ -30,7 +31,7 @@ public class groupCont {
 	
 	
 	
-	@RequestMapping(value = "studygroup/SGinsert.do")
+	@RequestMapping(value = "studygroup/insert.do")
 	public String SGinsert(){
 		return "/studygroup/insert";
 	}//SGinsert() end
@@ -74,12 +75,117 @@ public class groupCont {
 			//그룹 생성 성공했을때
 			mav.setViewName("member/msgView");//msgView로 이동
 			mav.addObject("message", "<p>스터디그룹 생성에 성공하였습니다</p>");
-			mav.addObject("link", "<a href='home.do'>[메인]</a>");
+			mav.addObject("link", "<a href='/home.do'>[메인]</a>");
 		}//if end
 		
 		return mav;
 		
 	}//end
+	
+	@RequestMapping(value = "studygroup/myGroupList.do")
+	public String myGroupList(Model model, HttpSession session) {
+		
+		String userId = (String)session.getAttribute("s_userid");
+		
+		List list = dao.myGroupList(userId);
+		
+		model.addAttribute("list", list);	
+		
+		return "/studygroup/myGroupList";
+	}
+	
+	@RequestMapping(value = "studygroup/groupList.do")
+	public String groupList(Model model, HttpSession session) {
+		
+		String userId = (String)session.getAttribute("s_userid");
+		
+		List list = dao.groupList(userId);
+		
+		model.addAttribute("list", list);	
+		
+		return "/studygroup/list";
+	}
+	
+	@RequestMapping(value = "studygroup/detail.do")
+	public String detail(Model model, HttpServletRequest request) {
+		
+		int sgno = Integer.parseInt(request.getParameter("sgno"));
+				
+		groupDTO dto = dao.groupDetail(sgno);
+		
+		model.addAttribute("dto", dto);	
+		
+		return "/studygroup/detail";
+	}
+	
+	@RequestMapping(value = "studygroup/myGroupDetail.do")
+	public String myGroupDetail(Model model, HttpServletRequest request) {
+		
+		int sgno = Integer.parseInt(request.getParameter("sgno"));
+		String sglevel = request.getParameter("sglevel");
+		
+		// 그룹 정보
+		groupDTO dto = dao.groupDetail(sgno);
+		
+		// 팀원 정보
+		List list = dao.myGroupTeamMembers(sgno);
+		
+		model.addAttribute("dto", dto);	
+		model.addAttribute("list", list);
+		model.addAttribute("mySglevel", sglevel);
+		
+		return "/studygroup/myGroupDetail";
+	}
+	
+	@RequestMapping(value = "studygroup/groupJoin.do")
+	public ModelAndView groupJoin(Model model, HttpServletRequest request, HttpSession session) {
+		
+		int sgno = Integer.parseInt(request.getParameter("sgno"));
+		String userId = (String)session.getAttribute("s_userid");
+				
+		int cnt = dao.groupJoin(sgno, userId);
+		
+		ModelAndView mav=new ModelAndView();	
+		
+		if(cnt==0) {
+			//그룹 생성 실패했을때
+			mav.setViewName("member/msgView");//msgView로 이동
+			mav.addObject("message", "<p>스터디그룹 신청에 실패하였습니다</p>");
+			mav.addObject("link", "<a href='javascript:history.back()'>[다시시도]</a>");			
+			
+		}else {
+			//그룹 생성 성공했을때
+			mav.setViewName("member/msgView");//msgView로 이동
+			mav.addObject("message", "<p>스터디그룹 신청에 성공하였습니다</p>");
+			mav.addObject("link", "<a href='/home.do'>[메인]</a>");
+		}		
+		return mav;
+	}
+	
+	@RequestMapping(value = "studygroup/groupConfirm.do")
+	public ModelAndView groupConfirm(Model model, HttpServletRequest request, HttpSession session) {
+		
+		int sgno = Integer.parseInt(request.getParameter("sgno"));
+		String userId = request.getParameter("userid");
+				
+		int cnt = dao.groupConfirm(sgno, userId);
+		
+		ModelAndView mav=new ModelAndView();	
+		
+		if(cnt==0) {
+			//그룹 생성 실패했을때
+			mav.setViewName("member/msgView");//msgView로 이동
+			mav.addObject("message", "<p>스터디그룹 승인에 실패하였습니다</p>");
+			mav.addObject("link", "<a href='javascript:history.back()'>[다시시도]</a>");			
+			
+		}else {
+			//그룹 생성 성공했을때
+			mav.setViewName("member/msgView");//msgView로 이동
+			mav.addObject("message", "<p>스터디그룹 승인에 성공하였습니다</p>");
+			mav.addObject("link", "<a href='/home.do'>[메인]</a>");
+		}		
+		return mav;
+	}
 	
 	/*
 	 public ArrayList<groupDTO> list(){ //구인 테이블 리스트 

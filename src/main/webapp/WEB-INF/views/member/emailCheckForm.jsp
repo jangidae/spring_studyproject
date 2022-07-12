@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div style="text-align: center">
-		<h3> 이메일 중복확인 </h3>
+		<h4> 이메일 중복확인 </h4>
 		<form id="emailChkForm" method="post" action="/member/emailCheckproc.do">
 			이메일 : <input type="text" name="email" id="email" autofocus>
 				   <input type="submit" onClick="blankCheck1()" value="중복확인">

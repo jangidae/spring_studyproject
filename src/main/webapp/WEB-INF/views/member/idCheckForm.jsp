@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div style="text-align: center">
-		<h3> 아이디 중복확인 </h3>
+		<h4> 아이디 중복확인 </h4>
 		<form id="idChkForm" method="post" action="/member/idCheckproc.do">
 			아이디 : <input type="text" name="userid" id="userid" maxlength="10" autofocus>
 				   <input type="button" onClick="blankCheck()" value="중복확인">

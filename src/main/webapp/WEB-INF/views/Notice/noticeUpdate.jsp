@@ -5,8 +5,8 @@
 <%@ include file="../header.jsp"%>
 <!-- 본문 시작 template.jsp -->
 
-<div class="title">게시물 수정</div>
-<form name="frm" method="post" action="/Notice/noticeUpdate.do" enctype="multipart/form-data">
+<div class="title"><h4>게시물 수정</h4></div>
+<form name="frm" method="post" action="/Notice/noticeUpdate.do" enctype="multipart/form-data" onsubmit="return noticeCheck()">
 	<input type="hidden" name="wno" value="${read.wno}">
 	<input type="hidden" name="tmpfile" value="${update.filename}"> 
 	<input type="hidden" name="tmpsize" value="${update.filesize}">
@@ -14,6 +14,7 @@
 			<tr>
 				<th>카테고리</th>
 				<td><select class="form-select" aria-label="Default select example" style='width: 710px;' name='ncode'>
+						<option value="0">카테고리를 선택해주세요</option>
 						<option>공지</option>
 						<option>뉴스</option>
 				</select>
@@ -22,19 +23,19 @@
 			<tr>
 				<th>제목</th>
 				<td>
-					<input type='text' name='wtitle' size='50' value="${read.wtitle}"></td>
+					<input type='text' id='wtitle' name='wtitle' size='50' value="${read.wtitle}"></td>
 			</tr>
 			<tr>
 				<th>내용</th>
 				<td>
-					<textarea name='wcontent' class="form-control" placeholder="내용을 입력해주세요" id="floatingTextarea" cols='30' rows='15'>${read.wcontent}</textarea>
+					<textarea name='wcontent' class="form-control" placeholder="내용을 입력해주세요" id="wcontent" cols='30' rows='15'>${read.wcontent}</textarea>
 				</td>
 			</tr>
 			<tr>
 				<th>사진</th>
 				<td>
 					<img src="../storage/${read.poster}" width="100"><br>
-					<input type='file' name='posterMF' size='50'>
+					<input type='file' id='poster' name='poster' size='50'>
 				</td>
 			</tr>
 			<tr>
@@ -50,12 +51,5 @@
 			<input type="button" value="HOME" onclick="location.href='/home.do'">
 		</div>
 </form>
-<script>
-	function chk() {
-		let flag = confirm("수정 하시겠습니까? ");
-		if (flag)
-			document.frm.submit();
-	}
-</script>
 <!-- 본문 끝 -->
 <%@ include file="../footer.jsp"%>

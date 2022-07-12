@@ -3,7 +3,7 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-<div class="title">게시물 수정</div>
+<div class="title"><h4>게시물 수정</h4></div>
 <form name="frm" method="post" action="update.do" enctype="multipart/form-data">
 		<input type="hidden" name="wno" value="${dto.wno}">
 		<input type="hidden" name="wno"      value="${dto.wno}">    

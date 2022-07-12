@@ -3,7 +3,7 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-<div class="title">게시물 삭제</div>
+<div class="title"><h4>게시물 삭제</h4></div>
     <form name="frm" method="post" action="noticeDel.do">    
     <!-- 아래 소스를 수정하겠습니다
           <input type="hidden" name="wno" value=${request.getparameter("wno")}>

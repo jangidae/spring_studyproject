@@ -6,7 +6,7 @@
 
 
 <form name="loginfrm" id="loginfrm" action="loginproc.do" method="POST" onsubmit="return loginCheck()"><!-- myscript.js에서 함수 작성 -->
-	<h1>로그인</h1>
+	<h4>로그인</h4>
 	<hr>
 	&nbsp;&nbsp;<b>아이디</b> <input type="text" id="userid" name="userid" placeholder="Enter id" maxlength="10" required>
 	<br>

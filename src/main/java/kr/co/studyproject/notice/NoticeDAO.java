@@ -255,5 +255,46 @@ public class NoticeDAO {
 	        }
 	        return cnt;
 	    }//totalRowCount() end
+	 
+	 
+	 
+	 public ArrayList<NoticeDTO> search(String word) {//예를 들어 검색어(word변수) '소'
+         ArrayList<NoticeDTO> list=null;
+         try {
+              con=dbopen.getConnection();
+              sql=new StringBuilder();
+              sql.append(" SELECT wno, ncode, wtitle, wcontent, wview, wdate");
+              sql.append(" FROM tb_notice ");
+              //검색어가 존재한다면
+              if(word.length()>0) {
+                 sql.append(" WHERE wtitle like '%"+word+"%' or ncode like '%"+word+"%' or wcontent like '%"+word+"%' ");
+              }//if end
+              sql.append(" ORDER BY wno DESC ");
+              pstmt=con.prepareStatement(sql.toString());
+              rs=pstmt.executeQuery();
+              if(rs.next()) {
+                 list=new ArrayList<>();
+                  do {
+                      NoticeDTO dto=new NoticeDTO();
+                      dto.setWno(rs.getInt("wno")); 
+                      dto.setNcode(rs.getString("ncode"));
+                      dto.setWtitle(rs.getString("wtitle"));
+                      dto.setWcontent(rs.getString("wcontent"));
+                      dto.setWview(rs.getInt("wview"));
+                      dto.setWdate(rs.getString("wdate"));
+    
+                      list.add(dto);
+                  }while(rs.next());
+                  
+              }//if end
+         } catch(Exception e) {
+            System.out.println("검색실패"+e);
+         } finally {
+                DBClose.close(con, pstmt, rs);
+         }//end
+         return list;
+      }//search() end
+	 
+	 
 
 }// class end

@@ -3,9 +3,9 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문 시작 template.jsp -->
 
-    <div class="title">게시글 등록</div>
-	<form name="frm" method="post" action="create.do" enctype="multipart/form-data">
-		<input type="hidden" name="wno" value="${requestScope.wno}">
+    <div class="title"><h4>게시글 등록</h4></div>
+	<form name="frm" method="post" action="studygroup/SGcreateProc.do" enctype="multipart/form-data">
+		<input type="hidden" name="sgno" value="${requestScope.sgno}">
 		<table class='table'>
 		<tr>
 			<th> 카테고리 </th>
@@ -43,19 +43,19 @@
 	   
 	    
 			<tr>
-					<td>${dto.wno}</td>	
-					<td><a href="../studygroup/updateForm.do?wno=${dto.wno}">${dto.wid}</a></td>
-					<td>${dto.title}</td>
-					<td>${dto.wdate}</td>
-					<td>${dto.wcontent}</td>
-					<td>${dto.wviewcount}</td>
+					<td>${dto.sgno}</td>	
+					<td><a href="../studygroup/updateForm.do?sgno=${dto.sgno}">${dto.sgleader}</a></td>
+					<td>${dto.sgname}</td>
+					<td>${dto.sgdate}</td>
+					<td>${dto.sgintro}</td>
+					
 			</tr>
 		</c:forEach>
 	    </table>
 
 	    <div class="btn-group" role="group" aria-label="Basic example">
 	      <input type='submit' value='작성완료' class="btn btn-primary">
-		  <input  class="btn btn-primary" type="button" value="목록" onclick="location.href='list.do?wno=${requestScope.wno}'">
+		  <input  class="btn btn-primary" type="button" value="목록" onclick="location.href='list.do?sgno=${requestScope.wsgno}'">
 		  <input  class="btn btn-primary" type="button" value="HOME"   onclick="location.href='/home.do'">	
 	    </div>  
 	</form>
